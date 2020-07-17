@@ -3,10 +3,19 @@ import connection from './database/database';
 
 const routes = Router();
 
-routes.get('/', async (req, res) => {
-  const data = await connection('movie').select('*');
+routes
+  .route('/movie')
+  .get(async (req, res) => {
+    const data = await connection('movie').select('*');
 
-  res.send(data);
-});
+    res.json(data);
+  })
+  .post(async (req, res) => {
+    const { name } = req.body;
+
+    await connection('movie').insert({ name });
+
+    res.status(200).send();
+  });
 
 export default routes;
