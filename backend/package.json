@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "knex:migrate": "knex --knexfile knexfile.js migrate:latest --esm"
   },
   "dependencies": {
     "cors": "^2.8.5",

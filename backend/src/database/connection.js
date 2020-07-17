@@ -2,7 +2,11 @@ import knex from 'knex';
 
 const connection = knex({
   client: 'pg',
-  connection: 'postgresql://postgres:postgres@localhost:5432/movie',
+  connection: {
+    user: 'postgres',
+    password: 'postgres',
+    database: 'movie',
+  },
 });
 
 export default connection;
