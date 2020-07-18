@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "knex:migrate": "knex --knexfile knexfile.js migrate:latest --esm"
+    "dev": "nodemon index.js --ignore __tests__",
+    "knex:migrate": "knex --knexfile knexfile.js migrate:latest --esm",
+    "test": "jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
