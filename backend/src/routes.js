@@ -1,21 +1,35 @@
 import { Router } from 'express';
-import connection from './database/connection';
+
+import UsersController from './controllers/UsersController';
+const usersController = new UsersController();
 
 const routes = Router();
 
 routes
-  .route('/movie')
+  .route('/user')
   .get(async (req, res) => {
-    const data = await connection('movie').select('*');
-
-    res.json(data);
+    try {
+      const data = await usersController.index();
+      res.status(200).json(data);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send();
+    }
   })
   .post(async (req, res) => {
-    const { name } = req.body;
+    const { name, email, password } = req.body;
 
-    await connection('movie').insert({ name });
-
-    res.status(200).send();
+    try {
+      await usersController.create({
+        name,
+        email,
+        password,
+      });
+      res.status(200).send();
+    } catch (err) {
+      console.log(err);
+      res.status(400).send();
+    }
   });
 
 export default routes;
