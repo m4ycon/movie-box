@@ -15,4 +15,9 @@ describe('User Controller', () => {
 
     expect(response.status).toBe(200);
   });
+
+  it('should list users', async () => {
+    const response = await (await request(app).get('/user')).body;
+    expect(typeof response).toBe('object');
+  });
 });
