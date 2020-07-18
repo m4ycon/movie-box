@@ -1,8 +1,17 @@
-it('should sum two numbers', () => {
-  const x = 1;
-  const y = 2;
+import 'regenerator-runtime/runtime';
 
-  const sum = x + y;
+import UserController from '../../src/controllers/UsersController.js';
+const userController = new UserController();
 
-  expect(sum).toBe(3);
+describe('Test', () => {
+  it('should list users', async () => {
+    await userController.create({
+      name: 'Maycon',
+      email: 'm@m',
+      password: '123456',
+    });
+
+    const a = 6;
+    expect(a).toBe(6);
+  });
 });

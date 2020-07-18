@@ -4,20 +4,32 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js --ignore __tests__",
+    "start": "node src/server.js",
+    "dev": "nodemon --exec babel-node src/server.js --ignore __tests__",
     "knex:migrate": "knex --knexfile knexfile.js migrate:latest --esm",
-    "test": "jest"
+    "pretest": "SET NODE_ENV=test&& knex --knexfile knexfile.js migrate:latest --esm",
+    "test": "SET NODE_ENV=test&& jest --forceExit --detectOpenHandles",
+    "posttest": "SET NODE_ENV=test&& knex --knexfile knexfile.js migrate:rollback --all --esm"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "esm": "^3.2.25",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.2",
     "pg": "^8.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
     "jest": "^26.1.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "regenerator-runtime": "^0.13.5",
+    "sqlite3": "^5.0.0"
   }
 }
