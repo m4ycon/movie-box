@@ -1,17 +1,18 @@
 import 'regenerator-runtime/runtime';
 
-import UserController from '../../src/controllers/UsersController.js';
-const userController = new UserController();
+import request from 'supertest';
+import app from '../../src/app';
 
-describe('Test', () => {
-  it('should list users', async () => {
-    await userController.create({
+describe('User Controller', () => {
+  it('should create an user', async () => {
+    const user = {
       name: 'Maycon',
       email: 'm@m',
       password: '123456',
-    });
+    };
 
-    const a = 6;
-    expect(a).toBe(6);
+    const response = await request(app).post('/user').send(user);
+
+    expect(response.status).toBe(200);
   });
 });
