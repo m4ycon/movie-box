@@ -17,7 +17,9 @@ describe('User Controller', () => {
   });
 
   it('should list users', async () => {
-    const response = await (await request(app).get('/user')).body;
-    expect(typeof response).toBe('object');
+    const response = await request(app)
+      .get('/user')
+      .then(res => res.body);
+    expect(typeof response).toBe(typeof Object.prototype);
   });
 });
