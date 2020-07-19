@@ -25,7 +25,7 @@ class UserController {
     try {
       const result = await connection(this._table).where(where);
 
-      if (!result) return { message: 'User not found.' };
+      if (!result[0]) return { message: 'User not found.' };
       return result[0];
     } catch (err) {
       throw err;
