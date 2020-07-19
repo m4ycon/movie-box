@@ -22,4 +22,21 @@ describe('User Controller', () => {
       .then(res => res.body);
     expect(typeof response).toBe(typeof Object.prototype);
   });
+
+  it('should create and find this user', async () => {
+    const user = {
+      name: 'Maycon',
+      email: 'new@email',
+      password: '123456',
+    };
+
+    await request(app).post('/user').send(user);
+
+    const response = await request(app)
+      .get('/user/find')
+      .query(user)
+      .then(res => res.body);
+
+    expect(response.name).toBe(user.name);
+  });
 });
