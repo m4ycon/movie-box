@@ -6,6 +6,7 @@ export async function up(knex) {
     table.string('password').notNullable();
     table.specificType('movies_watched', 'INT[]');
     table.specificType('watch_later', 'INT[]');
+    table.timestamps(true, true);
   });
 }
 
