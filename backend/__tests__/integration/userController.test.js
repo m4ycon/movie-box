@@ -16,6 +16,25 @@ describe('User Controller', () => {
     expect(response.status).toBe(200);
   });
 
+  it('should not create an user, email exists', async () => {
+    const user1 = {
+      name: 'Maria',
+      email: 'unique@email',
+      password: '123456',
+    };
+
+    const user2 = {
+      name: 'John',
+      email: 'unique@email',
+      password: '654321',
+    };
+
+    await request(app).post('/user').send(user1);
+    const response = await request(app).post('/user').send(user2);
+
+    expect(response.status).toBe(400);
+  });
+
   it('should list users', async () => {
     const response = await request(app)
       .get('/user')
@@ -26,7 +45,7 @@ describe('User Controller', () => {
   it('should create and find this user', async () => {
     const user = {
       name: 'Maycon',
-      email: 'new@email',
+      email: 'other@email',
       password: '123456',
     };
 
@@ -37,6 +56,6 @@ describe('User Controller', () => {
       .query(user)
       .then(res => res.body);
 
-    expect(response.name).toBe(user.name);
+    expect(response[0].name).toBe(user.name);
   });
 });
