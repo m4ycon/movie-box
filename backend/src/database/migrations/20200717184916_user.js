@@ -4,6 +4,8 @@ export async function up(knex) {
     table.string('name').notNullable();
     table.string('email').notNullable().unique();
     table.string('password').notNullable();
+    table.specificType('movies_watched', 'INT[]');
+    table.specificType('watch_later', 'INT[]');
   });
 }
 

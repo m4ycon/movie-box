@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "dev": "nodemon --exec babel-node src/server.js --ignore __tests__",
     "knex:migrate": "knex --knexfile knexfile.js migrate:latest --esm",
+    "knex:migrate:rollback": "knex --knexfile knexfile.js migrate:rollback --all --esm",
     "pretest": "SET NODE_ENV=test&& knex --knexfile knexfile.js migrate:latest --esm",
     "test": "SET NODE_ENV=test&& jest --forceExit --detectOpenHandles",
     "posttest": "SET NODE_ENV=test&& knex --knexfile knexfile.js migrate:rollback --all --esm"
