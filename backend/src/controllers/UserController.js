@@ -21,6 +21,7 @@ class UserController {
       if (emailExists.length) return { error: 'Email already registered' };
 
       await connection(this._table).insert(user);
+      return { message: 'User created successfully.' };
     } catch (err) {
       throw err;
     }

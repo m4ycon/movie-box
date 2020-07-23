@@ -13,14 +13,14 @@ routes
       res.status(200).json(data);
     } catch (err) {
       console.log(err);
-      res.status(400).send({ error: err.constraint });
+      res.status(400).send({ err });
     }
   })
   .post(async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-      const { error } = await userController.create({
+      const { error, message } = await userController.create({
         name,
         email,
         password,
@@ -28,7 +28,7 @@ routes
 
       if (error) return res.status(400).json({ error });
 
-      res.status(200).send({ message: 'User created successfully.' });
+      res.status(200).json({ message });
     } catch (error) {
       console.log(error);
       res.status(400).send({ error });
