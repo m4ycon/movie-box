@@ -20,15 +20,18 @@ routes
     const { name, email, password } = req.body;
 
     try {
-      await userController.create({
+      const { error } = await userController.create({
         name,
         email,
         password,
       });
+
+      if (error) return res.status(400).json({ error });
+
       res.status(200).send({ message: 'User created successfully.' });
-    } catch (err) {
-      console.log(err);
-      res.status(400).send({ error: err.constraint });
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({ error });
     }
   });
 
@@ -44,9 +47,9 @@ routes.get('/user/find', async (req, res) => {
       return acc;
     }, {});
 
-  const user = await userController.findOne(wheres);
+  const users = await userController.find(wheres);
 
-  res.status(200).json(user);
+  res.status(200).json(users);
 });
 
 export default routes;

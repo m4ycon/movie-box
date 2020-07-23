@@ -15,18 +15,23 @@ class UserController {
 
   async create(user) {
     try {
+      const { email } = user;
+
+      const emailExists = await this.find({ email });
+      if (emailExists.length) return { error: 'Email already registered' };
+
       await connection(this._table).insert(user);
     } catch (err) {
       throw err;
     }
   }
 
-  async findOne(where) {
+  async find(where) {
     try {
       const result = await connection(this._table).where(where);
+      if (!result.length) return { message: 'User not found.' };
 
-      if (!result[0]) return { message: 'User not found.' };
-      return result[0];
+      return result;
     } catch (err) {
       throw err;
     }
