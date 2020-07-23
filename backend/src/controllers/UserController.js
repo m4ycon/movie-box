@@ -37,6 +37,19 @@ class UserController {
       throw err;
     }
   }
+
+  async getWatched(userID) {
+    try {
+      const result = await connection(this._table)
+        .select('movies_watched')
+        .where({ id: userID });
+      if (!result.length) return { message: 'User not found.' };
+
+      return { watched: result[0].movies_watched };
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default UserController;

@@ -52,4 +52,13 @@ routes.get('/user/find', async (req, res) => {
   res.status(200).json(users);
 });
 
+routes.get('/user/:id/watched', async (req, res) => {
+  const { id } = req.params;
+  const { watched, message } = await userController.getWatched(id);
+
+  if (message) return res.status(404).json({ message });
+
+  res.status(200).json({ watched });
+});
+
 export default routes;
