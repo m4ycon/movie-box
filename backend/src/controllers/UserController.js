@@ -79,6 +79,7 @@ class UserController {
         .then(res => res[0]);
 
       if (movies_watched === null) movies_watched = [];
+      // This next "if" is for __tests__, because of how sqlite works
       if (
         typeof movies_watched === 'number' ||
         typeof movies_watched === 'string'

@@ -81,17 +81,14 @@ describe('User Controller', () => {
       .then(res => res.body);
 
     await request(app)
-      .put('/user/1/watched?movie=123')
+      .put('/user/1/watched?movie=456')
       .then(res => res.body);
 
     const { watched } = await request(app)
       .get('/user/1/watched')
       .then(res => res.body);
 
-    console.log(watched);
-
-    // expect(watched.includes(123)).toBe(true);
-    expect(1).toBe(1);
+    expect(watched.includes(123 && 456)).toBe(true);
   });
 
   it('should not add an item to an invalid id', async () => {
