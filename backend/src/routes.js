@@ -54,9 +54,9 @@ routes.get('/user/find', async (req, res) => {
 
 routes.get('/user/:id/watched', async (req, res) => {
   const { id } = req.params;
-  const { watched, message } = await userController.getWatched(id);
+  const { watched, error } = await userController.getWatched(id);
 
-  if (message) return res.status(404).json({ message });
+  if (error) return res.status(404).json({ error });
 
   res.status(200).json({ watched });
 });

@@ -58,4 +58,22 @@ describe('User Controller', () => {
 
     expect(response[0].name).toBe(user.name);
   });
+
+  it('should get watched list', async () => {
+    const { watched } = await request(app)
+      .get('/user/1/watched')
+      .then(res => res.body);
+
+
+    expect(watched).toBe(null || watched);
+  });
+
+  it('should not get watched list', async () => {
+    const { error } = await request(app)
+      .get('/user/9999/watched')
+      .then(res => res.body);
+
+
+    expect(error.length > 0).toBe(!null);
+  });
 });
