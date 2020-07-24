@@ -52,14 +52,25 @@ routes.get('/user/find', async (req, res) => {
   res.status(200).json(users);
 });
 
-routes.get('/user/:id/watched', async (req, res) => {
-  const { id } = req.params;
-  const { watched, error } = await userController.getWatched(id);
+routes
+  .route('/user/:id/watched')
+  .get(async (req, res) => {
+    const { id } = req.params;
+    const { watched, error } = await userController.getWatched(id);
 
-  if (error) return res.status(404).json({ error });
+    if (error) return res.status(404).json({ error });
 
-  res.status(200).json({ watched });
-});
+    res.status(200).json({ watched });
+  })
+  .put(async (req, res) => {
+    const { id } = req.params;
+    const { movie } = req.query;
+
+    const { error } = await userController.setWatched(id, movie);
+    if (error) return res.status(404).json({ error });
+
+    res.status(200).send();
+  });
 
 routes.get('/user/:id/watch-later', async (req, res) => {
   const { id } = req.params;

@@ -63,6 +63,29 @@ class UserController {
       throw err;
     }
   }
+
+  async setWatched(userID, movieID) {
+    try {
+      const idExists = await connection(this._table)
+        .select('id')
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      if (!idExists) return { error: 'User not found.' };
+
+      const { movies_watched } = await connection(this._table)
+        .select('movies_watched')
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      await connection(this._table)
+        .update({ movies_watched: [...movies_watched, movieID] })
+        .where({ id: userID });
+      return {};
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default UserController;
