@@ -73,13 +73,22 @@ class UserController {
 
       if (!idExists) return { error: 'User not found.' };
 
-      const { movies_watched } = await connection(this._table)
+      let { movies_watched } = await connection(this._table)
         .select('movies_watched')
         .where({ id: userID })
         .then(res => res[0]);
 
+      if (movies_watched === null) movies_watched = [];
+      if (
+        typeof movies_watched === 'number' ||
+        typeof movies_watched === 'string'
+      )
+        movies_watched = [movies_watched];
+
       await connection(this._table)
-        .update({ movies_watched: [...movies_watched, movieID] })
+        .update({
+          movies_watched: [...movies_watched, movieID],
+        })
         .where({ id: userID });
       return {};
     } catch (err) {
