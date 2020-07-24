@@ -39,16 +39,7 @@ class UserController {
   }
 
   async getWatched(userID) {
-    try {
-      const result = await connection(this._table)
-        .select('movies_watched')
-        .where({ id: userID });
-      if (!result.length) return { error: 'User not found.' };
-
-      return { watched: result[0].movies_watched };
-    } catch (err) {
-      throw err;
-    }
+    return this._getList(userID, 'movies_watched');
   }
 
   async getWatchLater(userID) {
@@ -57,11 +48,19 @@ class UserController {
 
   async _getList(userID, listName) {
     try {
-      const { [listName]: list } = await connection(this._table)
+      const userExists = await this._userExists(userID);
+      if (!userExists) return { error: 'User not found.' };
+
+      let { [listName]: list } = await connection(this._table)
         .select(listName)
         .where({ id: userID })
         .then(res => res[0]);
       if (!list) return { error: 'User not found.' };
+
+      if (list === null) list = [];
+      if (typeof list === 'string') list = list.split(',');
+      if (typeof list === 'number') list = [list];
+      list = list.map(e => parseInt(e));
 
       listName = this._snakeToCamelCase(listName);
 
@@ -90,8 +89,9 @@ class UserController {
         .then(res => res[0]);
 
       if (list === null) list = [];
-      // This next "if" is for __tests__, because of how sqlite works
-      if (typeof list === 'number' || typeof list === 'string') list = [list];
+      if (typeof list === 'string') list = list.split(',');
+      if (typeof list === 'number') list = [list];
+      list = list.map(e => parseInt(e));
 
       await connection(this._table)
         .update({
