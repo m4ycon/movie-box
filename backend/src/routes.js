@@ -72,13 +72,24 @@ routes
     res.status(200).send();
   });
 
-routes.get('/user/:id/watch-later', async (req, res) => {
-  const { id } = req.params;
-  const { watchLater, error } = await userController.getWatchLater(id);
+routes
+  .route('/user/:id/watch-later')
+  .get(async (req, res) => {
+    const { id } = req.params;
+    const { watchLater, error } = await userController.getWatchLater(id);
 
-  if (error) return res.status(404).json({ error });
+    if (error) return res.status(404).json({ error });
 
-  res.status(200).json({ watchLater });
-});
+    res.status(200).json({ watchLater });
+  })
+  .put(async (req, res) => {
+    const { id } = req.params;
+    const { movie } = req.query;
+
+    const { error } = await userController.setWatchLater(id, movie);
+    if (error) return res.status(404).json({ error });
+
+    res.status(200).send();
+  });
 
 export default routes;

@@ -68,10 +68,10 @@ describe('User Controller', () => {
       .get('/user/1/watched')
       .then(res => res.body);
 
-    expect(watched).toBe(null || watched);
+    expect(watched).toBe(null);
   });
 
-  it('should not get watched list', async () => {
+  it('should not get watched list, invalid id', async () => {
     const { error } = await request(app)
       .get('/user/9999/watched')
       .then(res => res.body);

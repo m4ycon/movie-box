@@ -96,6 +96,39 @@ class UserController {
       throw err;
     }
   }
+
+  async setWatchLater(userID, movieID) {
+    try {
+      const idExists = await connection(this._table)
+        .select('id')
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      if (!idExists) return { error: 'User not found.' };
+
+      let { watch_later } = await connection(this._table)
+        .select('watch_later')
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      if (watch_later === null) watch_later = [];
+      // This next "if" is for __tests__, because of how sqlite works
+      if (
+        typeof watch_later === 'number' ||
+        typeof watch_later === 'string'
+      )
+        watch_later = [watch_later];
+
+      await connection(this._table)
+        .update({
+          watch_later: [...watch_later, movieID],
+        })
+        .where({ id: userID });
+      return {};
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default UserController;
