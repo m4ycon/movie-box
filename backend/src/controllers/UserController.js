@@ -50,6 +50,19 @@ class UserController {
       throw err;
     }
   }
+
+  async getWatchLater(userID) {
+    try {
+      const result = await connection(this._table)
+        .select('watch_later')
+        .where({ id: userID });
+      if (!result.length) return { error: 'User not found.' };
+
+      return { watchLater: result[0].watch_later };
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default UserController;

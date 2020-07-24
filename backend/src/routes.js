@@ -61,4 +61,13 @@ routes.get('/user/:id/watched', async (req, res) => {
   res.status(200).json({ watched });
 });
 
+routes.get('/user/:id/watch-later', async (req, res) => {
+  const { id } = req.params;
+  const { watchLater, error } = await userController.getWatchLater(id);
+
+  if (error) return res.status(404).json({ error });
+
+  res.status(200).json({ watchLater });
+});
+
 export default routes;
