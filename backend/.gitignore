@@ -2,3 +2,4 @@
 .vscode
 *.sqlite
 *.http
+__tests__/coverage

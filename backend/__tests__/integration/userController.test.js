@@ -11,9 +11,12 @@ describe('User Controller', () => {
       password: '123456',
     };
 
-    const response = await request(app).post('/user').send(user);
+    const { message } = await request(app)
+      .post('/user')
+      .send(user)
+      .then(res => res.body);
 
-    expect(response.status).toBe(200);
+    expect(message.length > 0).toBe(true);
   });
 
   it('should not create an user, email exists', async () => {
@@ -30,16 +33,17 @@ describe('User Controller', () => {
     };
 
     await request(app).post('/user').send(user1);
-    const response = await request(app).post('/user').send(user2);
+    const { status } = await request(app).post('/user').send(user2);
 
-    expect(response.status).toBe(400);
+    expect(status).toBe(400);
   });
 
   it('should list users', async () => {
-    const response = await request(app)
+    const usersList = await request(app)
       .get('/user')
       .then(res => res.body);
-    expect(typeof response).toBe(typeof Object.prototype);
+
+    expect(usersList.length).toBe(2);
   });
 
   it('should create and find this user', async () => {
