@@ -65,52 +65,31 @@ class UserController {
   }
 
   async setWatched(userID, movieID) {
-    try {
-      if (!(await this._userExists(userID)))
-        return { error: 'User not found.' };
-
-      let { movies_watched } = await connection(this._table)
-        .select('movies_watched')
-        .where({ id: userID })
-        .then(res => res[0]);
-
-      if (movies_watched === null) movies_watched = [];
-      // This next "if" is for __tests__, because of how sqlite works
-      if (
-        typeof movies_watched === 'number' ||
-        typeof movies_watched === 'string'
-      )
-        movies_watched = [movies_watched];
-
-      await connection(this._table)
-        .update({
-          movies_watched: [...movies_watched, movieID],
-        })
-        .where({ id: userID });
-      return {};
-    } catch (err) {
-      throw err;
-    }
+    return this._setList(userID, movieID, 'movies_watched');
   }
 
   async setWatchLater(userID, movieID) {
+    return this._setList(userID, movieID, 'watch_later');
+  }
+   
+  async _setList(userID, movieID, listName) {
     try {
       if (!(await this._userExists(userID)))
         return { error: 'User not found.' };
 
-      let { watch_later } = await connection(this._table)
-        .select('watch_later')
+      let { [listName]: list } = await connection(this._table)
+        .select(listName)
         .where({ id: userID })
         .then(res => res[0]);
 
-      if (watch_later === null) watch_later = [];
+      if (list === null) list = [];
       // This next "if" is for __tests__, because of how sqlite works
-      if (typeof watch_later === 'number' || typeof watch_later === 'string')
-        watch_later = [watch_later];
+      if (typeof list === 'number' || typeof list === 'string')
+        list = [list];
 
       await connection(this._table)
         .update({
-          watch_later: [...watch_later, movieID],
+          [listName]: [...list, movieID],
         })
         .where({ id: userID });
       return {};
