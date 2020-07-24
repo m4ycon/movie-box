@@ -66,12 +66,8 @@ class UserController {
 
   async setWatched(userID, movieID) {
     try {
-      const idExists = await connection(this._table)
-        .select('id')
-        .where({ id: userID })
-        .then(res => res[0]);
-
-      if (!idExists) return { error: 'User not found.' };
+      if (!(await this._userExists(userID)))
+        return { error: 'User not found.' };
 
       let { movies_watched } = await connection(this._table)
         .select('movies_watched')
@@ -99,12 +95,8 @@ class UserController {
 
   async setWatchLater(userID, movieID) {
     try {
-      const idExists = await connection(this._table)
-        .select('id')
-        .where({ id: userID })
-        .then(res => res[0]);
-
-      if (!idExists) return { error: 'User not found.' };
+      if (!(await this._userExists(userID)))
+        return { error: 'User not found.' };
 
       let { watch_later } = await connection(this._table)
         .select('watch_later')
@@ -113,10 +105,7 @@ class UserController {
 
       if (watch_later === null) watch_later = [];
       // This next "if" is for __tests__, because of how sqlite works
-      if (
-        typeof watch_later === 'number' ||
-        typeof watch_later === 'string'
-      )
+      if (typeof watch_later === 'number' || typeof watch_later === 'string')
         watch_later = [watch_later];
 
       await connection(this._table)
@@ -128,6 +117,14 @@ class UserController {
     } catch (err) {
       throw err;
     }
+  }
+
+  async _userExists(userID) {
+    const idExists = await connection(this._table)
+      .select('id')
+      .where({ id: userID })
+      .then(res => res[0]);
+    return idExists ? true : false;
   }
 }
 
