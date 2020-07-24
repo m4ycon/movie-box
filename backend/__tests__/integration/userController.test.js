@@ -95,9 +95,33 @@ describe('User Controller', () => {
     expect(watched.includes(123 && 456)).toBe(true);
   });
 
-  it('should not add an item to an invalid id', async () => {
+  it('should not add an item to watched with an invalid id', async () => {
     const { error } = await request(app)
       .put('/user/9999/watched?movie=123')
+      .then(res => res.body);
+
+    expect(error.length > 0).toBe(!null);
+  });
+
+  it('should add an item to watch later list', async () => {
+    await request(app)
+      .put('/user/1/watch-later?movie=123')
+      .then(res => res.body);
+
+    await request(app)
+      .put('/user/1/watch-later?movie=456')
+      .then(res => res.body);
+
+    const { watchLater } = await request(app)
+      .get('/user/1/watch-later')
+      .then(res => res.body);
+
+    expect(watchLater.includes(123 && 456)).toBe(true);
+  });
+
+  it('should not add an item to watch later with an invalid id', async () => {
+    const { error } = await request(app)
+      .put('/user/9999/watch-later?movie=123')
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
