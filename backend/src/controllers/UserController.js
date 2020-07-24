@@ -52,13 +52,20 @@ class UserController {
   }
 
   async getWatchLater(userID) {
-    try {
-      const result = await connection(this._table)
-        .select('watch_later')
-        .where({ id: userID });
-      if (!result.length) return { error: 'User not found.' };
+    return this._getList(userID, 'watch_later');
+  }
 
-      return { watchLater: result[0].watch_later };
+  async _getList(userID, listName) {
+    try {
+      const { [listName]: list } = await connection(this._table)
+        .select(listName)
+        .where({ id: userID })
+        .then(res => res[0]);
+      if (!list) return { error: 'User not found.' };
+
+      listName = this._snakeToCamelCase(listName);
+
+      return { [listName]: list };
     } catch (err) {
       throw err;
     }
@@ -71,7 +78,7 @@ class UserController {
   async setWatchLater(userID, movieID) {
     return this._setList(userID, movieID, 'watch_later');
   }
-   
+
   async _setList(userID, movieID, listName) {
     try {
       if (!(await this._userExists(userID)))
@@ -84,8 +91,7 @@ class UserController {
 
       if (list === null) list = [];
       // This next "if" is for __tests__, because of how sqlite works
-      if (typeof list === 'number' || typeof list === 'string')
-        list = [list];
+      if (typeof list === 'number' || typeof list === 'string') list = [list];
 
       await connection(this._table)
         .update({
@@ -104,6 +110,13 @@ class UserController {
       .where({ id: userID })
       .then(res => res[0]);
     return idExists ? true : false;
+  }
+
+  _snakeToCamelCase(str) {
+    return str.replace(
+      /([A-Za-z]+)_([A-Za-z]{1})([A-Za-z]+)/,
+      (str, $1, $2, $3) => $1 + $2.toUpperCase() + $3
+    );
   }
 }
 
