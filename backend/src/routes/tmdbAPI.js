@@ -32,4 +32,17 @@ routes.get('/movie/popular', async (req, res) => {
   }
 });
 
+routes.get('/movie/search', async (req, res) => {
+  const { movie, page, size } = req.query;
+
+  try {
+    const movies = await tmdbController.searchMovies(movie, page, size);
+
+    res.status(200).json(movies);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
+
 export default routes;

@@ -12,11 +12,11 @@ class TmdbController {
         .then(res => res.data);
 
       response.backdrops.map(e => {
-        e.file_path = this.imageURL + size + e.file_path;
+        e.file_path = this._formatImageURL(e.file_path, size);
       });
 
       response.posters.map(e => {
-        e.file_path = this.imageURL + size + e.file_path;
+        e.file_path = this._formatImageURL(e.file_path, size);
       });
 
       return response;
@@ -27,17 +27,40 @@ class TmdbController {
 
   async getPopular(size = 'original') {
     try {
-      const response = await api.get('/movie/popular?language=pt-BR').then(res => res.data);
+      const response = await api
+        .get('/movie/popular?language=pt-BR')
+        .then(res => res.data);
 
       response.results.map(e => {
-        e.poster_path = this.imageURL + size + e.poster_path;
-        e.backdrop_path = this.imageURL + size + e.backdrop_path;
+        e.poster_path = this._formatImageURL(e.poster_path, size);
+        e.backdrop_path = this._formatImageURL(e.backdrop_path, size);
       });
 
       return response;
     } catch (err) {
       throw err;
     }
+  }
+
+  async searchMovies(movie, page = 1, size = 'original') {
+    try {
+      const response = await api
+        .get(`search/movie?query=${movie}&page=${page}`)
+        .then(res => res.data);
+
+      response.results.map(e => {
+        e.poster_path = this._formatImageURL(e.poster_path, size);
+        e.backdrop_path = this._formatImageURL(e.backdrop_path, size);
+      });
+
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  _formatImageURL(path, size) {
+    return path ? this.imageURL + size + path : path;
   }
 }
 
