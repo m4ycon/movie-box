@@ -46,6 +46,14 @@ class UserController {
     return this._getList(userID, 'watch_later');
   }
 
+  async setWatched(userID, movieID) {
+    return this._setList(userID, movieID, 'movies_watched');
+  }
+
+  async setWatchLater(userID, movieID) {
+    return this._setList(userID, movieID, 'watch_later');
+  }
+
   async _getList(userID, listName) {
     try {
       const userExists = await this._userExists(userID);
@@ -56,25 +64,13 @@ class UserController {
         .where({ id: userID })
         .then(res => res[0]);
 
-      if (list === null) list = [];
-      if (typeof list === 'string') list = list.split(',');
-      if (typeof list === 'number') list = [list];
-      list = list.map(e => parseInt(e));
+      list = this._formatList(list);
 
       listName = this._snakeToCamelCase(listName);
-
       return { [listName]: list };
     } catch (err) {
       throw err;
     }
-  }
-
-  async setWatched(userID, movieID) {
-    return this._setList(userID, movieID, 'movies_watched');
-  }
-
-  async setWatchLater(userID, movieID) {
-    return this._setList(userID, movieID, 'watch_later');
   }
 
   async _setList(userID, movieID, listName) {
@@ -87,10 +83,7 @@ class UserController {
         .where({ id: userID })
         .then(res => res[0]);
 
-      if (list === null) list = [];
-      if (typeof list === 'string') list = list.split(',');
-      if (typeof list === 'number') list = [list];
-      list = list.map(e => parseInt(e));
+      list = this._formatList(list);
 
       await connection(this._table)
         .update({
@@ -116,6 +109,14 @@ class UserController {
       /([A-Za-z]+)_([A-Za-z]{1})([A-Za-z]+)/,
       (str, $1, $2, $3) => $1 + $2.toUpperCase() + $3
     );
+  }
+
+  _formatList(list) {
+    // function used to treat list returned by db, standardizing
+    if (list === null) list = [];
+    if (typeof list === 'string') list = list.split(',');
+    if (typeof list === 'number') list = [list];
+    return list.map(e => parseInt(e));
   }
 }
 
