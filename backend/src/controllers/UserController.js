@@ -55,7 +55,6 @@ class UserController {
         .select(listName)
         .where({ id: userID })
         .then(res => res[0]);
-      if (!list) return { error: 'User not found.' };
 
       if (list === null) list = [];
       if (typeof list === 'string') list = list.split(',');
@@ -80,8 +79,8 @@ class UserController {
 
   async _setList(userID, movieID, listName) {
     try {
-      if (!(await this._userExists(userID)))
-        return { error: 'User not found.' };
+      const userExists = await this._userExists(userID);
+      if (!userExists) return { error: 'User not found.' };
 
       let { [listName]: list } = await connection(this._table)
         .select(listName)
@@ -105,11 +104,11 @@ class UserController {
   }
 
   async _userExists(userID) {
-    const idExists = await connection(this._table)
+    const user = await connection(this._table)
       .select('id')
       .where({ id: userID })
       .then(res => res[0]);
-    return idExists ? true : false;
+    return user ? true : false;
   }
 
   _snakeToCamelCase(str) {
