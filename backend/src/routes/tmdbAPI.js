@@ -45,4 +45,18 @@ routes.get('/movie/search', async (req, res) => {
   }
 });
 
+routes.get('/movie/:id', async (req, res) => {
+  const { id } = req.params;
+  const { size } = req.query;
+
+  try {
+    const movie = await tmdbController.getMovie(id, size);
+
+    res.status(200).json(movie);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
+
 export default routes;

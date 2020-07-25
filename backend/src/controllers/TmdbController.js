@@ -59,7 +59,26 @@ class TmdbController {
     }
   }
 
-  _formatImageURL(path, size) {
+  async getMovie(id, size = 'original') {
+    try {
+      const response = await api.get(`movie/${id}`).then(res => res.data);
+
+      response.poster_path = this._formatImageURL(response.poster_path, size);
+      response.backdrop_path = this._formatImageURL(
+        response.backdrop_path,
+        size
+      );
+      response.production_companies.map(e => {
+        e.logo_path = this._formatImageURL(e.logo_path);
+      });
+
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  _formatImageURL(path, size = 'original') {
     return path ? this.imageURL + size + path : path;
   }
 }
