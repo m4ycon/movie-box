@@ -1,4 +1,5 @@
 import connection from '../database/connection';
+import snakeToCamelCase from '../helpers/snakeToCamelCase';
 
 class UserController {
   constructor() {
@@ -66,7 +67,7 @@ class UserController {
 
       list = this._formatList(list);
 
-      listName = this._snakeToCamelCase(listName);
+      listName = snakeToCamelCase(listName);
       return { [listName]: list };
     } catch (err) {
       throw err;
@@ -102,13 +103,6 @@ class UserController {
       .where({ id: userID })
       .then(res => res[0]);
     return user ? true : false;
-  }
-
-  _snakeToCamelCase(str) {
-    return str.replace(
-      /([A-Za-z]+)_([A-Za-z]{1})([A-Za-z]+)/,
-      (str, $1, $2, $3) => $1 + $2.toUpperCase() + $3
-    );
   }
 
   _formatList(list) {
