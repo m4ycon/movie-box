@@ -21,7 +21,7 @@ class AppController {
   }
 
   routes() {
-    this._express.use(routes);
+    routes(this._express);
   }
 }
 
