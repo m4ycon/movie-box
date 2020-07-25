@@ -19,5 +19,12 @@ describe('TMDB Controller', () => {
 
     expect(response.status).toBe(400);
   });
-  
+
+  it('should get popular movies list', async () => {
+    const response = await request(app)
+      .get('/movie/popular')
+      .then(res => res.body);
+
+    expect(response.results.length > 0).toBe(true);
+  });
 });
