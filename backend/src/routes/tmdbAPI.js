@@ -1,12 +1,18 @@
 import { Router } from 'express';
-import api from '../services/tmdb';
+
+import TmdbController from '../controllers/TmdbController';
+const tmdbController = new TmdbController();
 
 const routes = Router();
 
-routes.get('/tmdb', async (req, res) => {
+routes.get('/movie/:id/image_list', async (req, res) => {
+  const { id } = req.params;
+  const { size } = req.query;
+
   try {
-    const response = await api.get('movie/550').then(res => res.data);
-    res.status(200).send(response);
+    const imageList = await tmdbController.getImageList(id, size);
+
+    res.status(200).json(imageList);
   } catch (err) {
     console.log(err);
     res.status(400).send();
