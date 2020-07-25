@@ -24,6 +24,21 @@ class TmdbController {
       throw err;
     }
   }
+
+  async getPopular(size = 'original') {
+    try {
+      const response = await api.get('/movie/popular?language=pt-BR').then(res => res.data);
+
+      response.results.map(e => {
+        e.poster_path = this.imageURL + size + e.poster_path;
+        e.backdrop_path = this.imageURL + size + e.backdrop_path;
+      });
+
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default TmdbController;

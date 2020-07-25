@@ -19,4 +19,17 @@ routes.get('/movie/:id/image_list', async (req, res) => {
   }
 });
 
+routes.get('/movie/popular', async (req, res) => {
+  const { size } = req.query;
+
+  try {
+    const popular = await tmdbController.getPopular(size);
+
+    res.status(200).json(popular);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send();
+  }
+});
+
 export default routes;
