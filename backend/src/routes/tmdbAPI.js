@@ -14,7 +14,7 @@ routes.get('/movie/:id/image_list', async (req, res) => {
 
     res.status(200).json(imageList);
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data.status_message);
     res.status(400).send();
   }
 });
