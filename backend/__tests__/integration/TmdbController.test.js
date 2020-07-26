@@ -27,4 +27,12 @@ describe('TMDB Controller', () => {
 
     expect(response.results.length > 0).toBe(true);
   });
+
+  it('should search movies', async () => {
+    const response = await request(app)
+      .get('/movie/search?movie=joker')
+      .then(res => res.body);
+      
+    expect(response.results.length > 0).toBe(true);
+  });
 });
