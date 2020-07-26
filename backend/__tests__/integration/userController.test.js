@@ -32,10 +32,10 @@ describe('User Controller', () => {
       password: '654321',
     };
 
-    await request(app).post('/user').send(user1);
-    const { status } = await request(app).post('/user').send(user2);
+    const res1 = await request(app).post('/user').send(user1);
+    const res2 = await request(app).post('/user').send(user2);
 
-    expect(status).toBe(400);
+    expect(res1.status === 200 && res2.status === 400).toBe(true);
   });
 
   it('should list users', async () => {
@@ -64,12 +64,11 @@ describe('User Controller', () => {
   });
 
   it('should get watched list', async () => {
-    const res = await request(app)
+    const { moviesWatched } = await request(app)
       .get('/user/1/watched')
       .then(res => res.body);
 
-    // expect(typeof moviesWatched).toBe(typeof Array.prototype);
-    expect(1).toBe(1);
+    expect(typeof moviesWatched).toBe(typeof Array.prototype);
   });
 
   it('should not get watched list, invalid id', async () => {
