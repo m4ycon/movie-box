@@ -68,6 +68,33 @@ class UserController {
     return this._setList(userID, movieID, 'watch_later');
   }
 
+  async delWatched(userID, movieID) {
+    try {
+      const userExists = await this._userExists(userID);
+      if (!userExists) return { error: 'User not found.' };
+
+      let { movies_watched } = await connection(this._table)
+        .select('movies_watched')
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      movies_watched = this._formatList(movies_watched);
+      const filteredMovies = movies_watched.filter(
+        id => id !== Number(movieID)
+      );
+
+      await connection(this._table)
+        .update({
+          movies_watched: filteredMovies,
+        })
+        .where({ id: userID });
+
+      return {};
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async _getList(userID, listName) {
     try {
       const userExists = await this._userExists(userID);
