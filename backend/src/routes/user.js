@@ -20,7 +20,7 @@ routes
     const { name, email, password } = req.body;
 
     try {
-      const { error, message } = await userController.create({
+      const { error, id, message } = await userController.create({
         name,
         email,
         password,
@@ -28,7 +28,7 @@ routes
 
       if (error) return res.status(400).json({ error });
 
-      res.status(200).json({ message });
+      res.status(200).json({ id, message });
     } catch (error) {
       console.log(error);
       res.status(400).send({ error });
