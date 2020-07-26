@@ -69,30 +69,11 @@ class UserController {
   }
 
   async delWatched(userID, movieID) {
-    try {
-      const userExists = await this._userExists(userID);
-      if (!userExists) return { error: 'User not found.' };
+    return this._delList(userID, movieID, 'movies_watched');
+  }
 
-      let { movies_watched } = await connection(this._table)
-        .select('movies_watched')
-        .where({ id: userID })
-        .then(res => res[0]);
-
-      movies_watched = this._formatList(movies_watched);
-      const filteredMovies = movies_watched.filter(
-        id => id !== Number(movieID)
-      );
-
-      await connection(this._table)
-        .update({
-          movies_watched: filteredMovies,
-        })
-        .where({ id: userID });
-
-      return {};
-    } catch (err) {
-      throw err;
-    }
+  async delWatchLater(userID, movieID) {
+    return this._delList(userID, movieID, 'watch_later');
   }
 
   async _getList(userID, listName) {
@@ -131,6 +112,31 @@ class UserController {
           [listName]: [...list, movieID],
         })
         .where({ id: userID });
+      return {};
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async _delList(userID, movieID, listName) {
+    try {
+      const userExists = await this._userExists(userID);
+      if (!userExists) return { error: 'User not found.' };
+
+      let { [listName]: list } = await connection(this._table)
+        .select(listName)
+        .where({ id: userID })
+        .then(res => res[0]);
+
+      list = this._formatList(list);
+      const filteredMovies = list.filter(id => id !== Number(movieID));
+
+      await connection(this._table)
+        .update({
+          [listName]: filteredMovies,
+        })
+        .where({ id: userID });
+
       return {};
     } catch (err) {
       throw err;

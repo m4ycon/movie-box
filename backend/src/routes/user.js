@@ -76,7 +76,7 @@ routes
     const { movie } = req.query;
 
     const { error } = await userController.delWatched(id, movie);
-    if (error) return res.status(400).json(error);
+    if (error) return res.status(400).json({ error });
 
     res.status(200).send();
   });
@@ -97,6 +97,15 @@ routes
 
     const { error } = await userController.setWatchLater(id, movie);
     if (error) return res.status(404).json({ error });
+
+    res.status(200).send();
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params;
+    const { movie } = req.query;
+
+    const { error } = await userController.delWatchLater(id, movie);
+    if (error) return res.status(400).json({ error });
 
     res.status(200).send();
   });
