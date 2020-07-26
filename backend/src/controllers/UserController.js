@@ -1,5 +1,6 @@
 import connection from '../database/connection';
 import snakeToCamelCase from '../helpers/snakeToCamelCase';
+import bcrypt from 'bcrypt';
 
 class UserController {
   constructor() {
@@ -16,13 +17,25 @@ class UserController {
 
   async create(user) {
     try {
-      const { email } = user;
+      const { name, email, password } = user;
 
       const emailExists = await this.find({ email });
       if (emailExists.length) return { error: 'Email already registered' };
 
-      await connection(this._table).insert(user);
-      return { message: 'User created successfully.' };
+      const hashPassword = await this._hashPassword(password);
+
+      const { id } = await connection(this._table)
+        .insert(
+          {
+            name,
+            email,
+            password: hashPassword,
+          },
+          ['id']
+        )
+        .then(res => res[0]);
+
+      return { id, message: 'User created successfully.' };
     } catch (err) {
       throw err;
     }
@@ -111,6 +124,27 @@ class UserController {
     if (typeof list === 'string') list = list.split(',');
     if (typeof list === 'number') list = [list];
     return list.map(e => parseInt(e));
+  }
+
+  async _hashPassword(password) {
+    const saltRounds = 10;
+    try {
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashPassword = await bcrypt.hash(password, salt);
+
+      return hashPassword;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async _comparePasswords(password, hashPassword) {
+    try {
+      const isMatch = await bcrypt.compare(password, hashPassword);
+      return isMatch;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
