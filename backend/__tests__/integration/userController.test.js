@@ -126,4 +126,44 @@ describe('User Controller', () => {
 
     expect(error.length > 0).toBe(!null);
   });
+
+  it('should delete an item from watch later', async () => {
+    await request(app)
+      .delete('/user/1/watch-later?movie=123')
+      .then(res => res.body);
+
+    const { watchLater } = await request(app)
+      .get('/user/1/watch-later')
+      .then(res => res.body);
+
+    expect(watchLater.includes(123)).toBe(false);
+  });
+
+  it('should not delete an item from watch later, invalid id', async () => {
+    const { error } = await request(app)
+      .delete('/user/9999/watch-later?movie=123')
+      .then(res => res.body);
+
+    expect(error.length > 0).toBe(!null);
+  });
+
+  it('should delete an item from watched', async () => {
+    await request(app)
+      .delete('/user/1/watched?movie=123')
+      .then(res => res.body);
+
+    const { moviesWatched } = await request(app)
+      .get('/user/1/watched')
+      .then(res => res.body);
+
+    expect(moviesWatched.includes(123)).toBe(false);
+  });
+
+  it('should not delete an item from watched, invalid id', async () => {
+    const { error } = await request(app)
+      .delete('/user/9999/watched?movie=123')
+      .then(res => res.body);
+
+    expect(error.length > 0).toBe(!null);
+  });
 });
