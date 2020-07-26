@@ -54,7 +54,7 @@ routes.get('/movie/:id', async (req, res) => {
 
     res.status(200).json(movie);
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data.status_message);
     res.status(400).send();
   }
 });

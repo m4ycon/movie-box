@@ -32,7 +32,21 @@ describe('TMDB Controller', () => {
     const response = await request(app)
       .get('/movie/search?movie=joker')
       .then(res => res.body);
-      
+
     expect(response.results.length > 0).toBe(true);
+  });
+
+  it("should get movie's details", async () => {
+    const response = await request(app)
+      .get('/movie/550')
+      .then(res => res.body);
+
+    expect(response.id).toBe(550);
+  });
+
+  it("should not get movie's details", async () => {
+    const response = await request(app).get('/movie/1');
+
+    expect(response.status).toBe(400);
   });
 });
