@@ -70,6 +70,7 @@ describe('User Controller', () => {
   it('should get watched list', async () => {
     const { moviesWatched } = await request(app)
       .get('/user/1/watched')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(typeof moviesWatched).toBe(typeof Array.prototype);
@@ -78,6 +79,7 @@ describe('User Controller', () => {
   it('should not get watched list, invalid id', async () => {
     const { error } = await request(app)
       .get('/user/9999/watched')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
@@ -86,14 +88,17 @@ describe('User Controller', () => {
   it('should add an item to watched list', async () => {
     await request(app)
       .put('/user/1/watched?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     await request(app)
       .put('/user/1/watched?movie=456')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     const { moviesWatched } = await request(app)
       .get('/user/1/watched')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(moviesWatched.includes(123 && 456)).toBe(true);
@@ -102,6 +107,7 @@ describe('User Controller', () => {
   it('should not add an item to watched with an invalid id', async () => {
     const { error } = await request(app)
       .put('/user/9999/watched?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
@@ -110,14 +116,17 @@ describe('User Controller', () => {
   it('should add an item to watch later list', async () => {
     await request(app)
       .put('/user/1/watch-later?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     await request(app)
       .put('/user/1/watch-later?movie=456')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     const { watchLater } = await request(app)
       .get('/user/1/watch-later')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(watchLater.includes(123 && 456)).toBe(true);
@@ -126,6 +135,7 @@ describe('User Controller', () => {
   it('should not add an item to watch later with an invalid id', async () => {
     const { error } = await request(app)
       .put('/user/9999/watch-later?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
@@ -134,10 +144,12 @@ describe('User Controller', () => {
   it('should delete an item from watch later', async () => {
     await request(app)
       .delete('/user/1/watch-later?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     const { watchLater } = await request(app)
       .get('/user/1/watch-later')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(watchLater.includes(123)).toBe(false);
@@ -146,6 +158,7 @@ describe('User Controller', () => {
   it('should not delete an item from watch later, invalid id', async () => {
     const { error } = await request(app)
       .delete('/user/9999/watch-later?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
@@ -154,10 +167,12 @@ describe('User Controller', () => {
   it('should delete an item from watched', async () => {
     await request(app)
       .delete('/user/1/watched?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     const { moviesWatched } = await request(app)
       .get('/user/1/watched')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(moviesWatched.includes(123)).toBe(false);
@@ -166,6 +181,7 @@ describe('User Controller', () => {
   it('should not delete an item from watched, invalid id', async () => {
     const { error } = await request(app)
       .delete('/user/9999/watched?movie=123')
+      .set('Authorization', `bearer ${userModel.token}`)
       .then(res => res.body);
 
     expect(error.length > 0).toBe(!null);
