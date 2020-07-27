@@ -52,6 +52,16 @@ class UserController {
     }
   }
 
+  async login(email, password) {
+    const user = await this.find({ email }).then(res => res[0]);
+    if (!user) return { error: 'Unregistered email' };
+
+    const isMatch = await this._comparePasswords(password, user.password);
+    if (!isMatch) return { error: 'Invalid password' };
+
+    return { user: user.id };
+  }
+
   async getWatched(userID) {
     return this._getList(userID, 'movies_watched');
   }

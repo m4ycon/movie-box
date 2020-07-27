@@ -39,6 +39,23 @@ routes
     }
   });
 
+routes.get('/user/login', async (req, res) => {
+  const [, hash] = req.headers.authorization.split(' ');
+
+  const [email, password] = Buffer.from(hash, 'base64').toString().split(':');
+
+  try {
+    const { error, user } = await userController.login(email, password);
+    if (error) return res.status(401).send({ error });
+
+    const token = jwt.signIn({ user });
+
+    res.json({ user, token });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 routes.get('/user/find', async (req, res) => {
   const query = req.query;
 
