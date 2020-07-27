@@ -35,7 +35,7 @@ class UserController {
         )
         .then(res => res[0]);
 
-      return { id, message: 'User created successfully.' };
+      return { id };
     } catch (err) {
       throw err;
     }

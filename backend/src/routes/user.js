@@ -22,7 +22,7 @@ routes
     const { name, email, password } = req.body;
 
     try {
-      const { error, id, message } = await userController.create({
+      const { error, id } = await userController.create({
         name,
         email,
         password,
@@ -32,7 +32,7 @@ routes
 
       const token = jwt.signIn({ user: id });
 
-      res.status(200).json({ id, message, token });
+      res.status(200).json({ id, token });
     } catch (error) {
       console.log(error);
       res.status(400).send({ error });
