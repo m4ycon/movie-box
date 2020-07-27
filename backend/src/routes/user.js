@@ -32,7 +32,7 @@ routes
 
       const token = jwt.signIn({ user: id });
 
-      res.status(200).json({ id, token });
+      res.status(200).json({ user: id, token });
     } catch (error) {
       res.status(400).json({ error });
     }

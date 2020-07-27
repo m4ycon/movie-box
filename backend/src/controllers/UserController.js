@@ -24,7 +24,7 @@ class UserController {
 
       const hashPassword = await this._hashPassword(password);
 
-      const { id } = await connection(this._table)
+      const id = await connection(this._table)
         .insert(
           {
             name,
@@ -34,7 +34,7 @@ class UserController {
           ['id']
         )
         .then(res => res[0]);
-
+        
       return { id };
     } catch (err) {
       throw err;
