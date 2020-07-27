@@ -58,21 +58,13 @@ describe('User Controller', () => {
     expect(usersList.length).toBe(2);
   });
 
-  it('should create and find this user', async () => {
-    const user = {
-      name: 'Maycon',
-      email: 'other@email',
-      password: '123456',
-    };
-
-    await request(app).post('/user').send(user);
-
+  it('should find this user', async () => {
     const response = await request(app)
       .get('/user/find')
-      .query(user)
+      .query({ email: userModel.email })
       .then(res => res.body);
 
-    expect(response[0].name).toBe(user.name);
+    expect(response[0].id).toBe(userModel.id);
   });
 
   it('should get watched list', async () => {
