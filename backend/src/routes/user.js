@@ -3,6 +3,8 @@ import { Router } from 'express';
 import UserController from '../controllers/UserController';
 const userController = new UserController();
 
+import jwt from '../auth/jwt';
+
 const routes = Router();
 
 routes
@@ -28,7 +30,9 @@ routes
 
       if (error) return res.status(400).json({ error });
 
-      res.status(200).json({ id, message });
+      const token = jwt.signIn({ user: id });
+
+      res.status(200).json({ id, message, token });
     } catch (error) {
       console.log(error);
       res.status(400).send({ error });
