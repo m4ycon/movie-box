@@ -13,9 +13,8 @@ routes
     try {
       const data = await userController.index();
       res.status(200).json(data);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send({ err });
+    } catch (error) {
+      res.status(400).json({ error });
     }
   })
   .post(async (req, res) => {
@@ -34,8 +33,7 @@ routes
 
       res.status(200).json({ id, token });
     } catch (error) {
-      console.log(error);
-      res.status(400).send({ error });
+      res.status(400).json({ error });
     }
   });
 

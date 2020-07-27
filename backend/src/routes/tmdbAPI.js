@@ -13,9 +13,11 @@ routes.get('/movie/:id/image_list', async (req, res) => {
     const imageList = await tmdbController.getImageList(id, size);
 
     res.status(200).json(imageList);
-  } catch (err) {
-    console.log(err.response.data.status_message);
-    res.status(400).send();
+  } catch (error) {
+    const apiError = error.response.data.status_message;
+    if (apiError) return res.status(400).json({ error: apiError });
+
+    res.status(400).json({ error });
   }
 });
 
@@ -26,9 +28,11 @@ routes.get('/movie/popular', async (req, res) => {
     const popular = await tmdbController.getPopular(size);
 
     res.status(200).json(popular);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send();
+  } catch (error) {
+    const apiError = error.response.data.status_message;
+    if (apiError) return res.status(400).json({ error: apiError });
+
+    res.status(400).json({ error });
   }
 });
 
@@ -39,9 +43,11 @@ routes.get('/movie/search', async (req, res) => {
     const movies = await tmdbController.searchMovies(movie, page, size);
 
     res.status(200).json(movies);
-  } catch (err) {
-    console.log(err);
-    res.status(400).send();
+  } catch (error) {
+    const apiError = error.response.data.status_message;
+    if (apiError) return res.status(400).json({ error: apiError });
+
+    res.status(400).json({ error });
   }
 });
 
@@ -53,9 +59,11 @@ routes.get('/movie/:id', async (req, res) => {
     const movie = await tmdbController.getMovie(id, size);
 
     res.status(200).json(movie);
-  } catch (err) {
-    console.log(err.response.data.status_message);
-    res.status(400).send();
+  } catch (error) {
+    const apiError = error.response.data.status_message;
+    if (apiError) return res.status(400).json({ error: apiError });
+
+    res.status(400).json({ error });
   }
 });
 
