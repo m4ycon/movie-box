@@ -4,6 +4,7 @@ import UserController from '../controllers/UserController';
 const userController = new UserController();
 
 import jwt from '../auth/jwt';
+import authMiddleware from '../middlewares/authMiddleware';
 
 const routes = Router();
 
@@ -73,6 +74,7 @@ routes.get('/user/find', async (req, res) => {
 
 routes
   .route('/user/:id/watched')
+  .all(authMiddleware)
   .get(async (req, res) => {
     const { id } = req.params;
     const { moviesWatched, error } = await userController.getWatched(id);
@@ -102,6 +104,7 @@ routes
 
 routes
   .route('/user/:id/watch-later')
+  .all(authMiddleware)
   .get(async (req, res) => {
     const { id } = req.params;
     const { watchLater, error } = await userController.getWatchLater(id);
