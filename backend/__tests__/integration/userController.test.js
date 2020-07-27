@@ -3,20 +3,32 @@ import 'regenerator-runtime/runtime';
 import request from 'supertest';
 import app from '../../src/app';
 
+const userModel = {
+  name: 'Maycon',
+  email: '1@email.com',
+  password: '123456',
+};
+
 describe('User Controller', () => {
   it('should create an user', async () => {
-    const user = {
-      name: 'Maycon',
-      email: 'm@m',
-      password: '123456',
-    };
-
-    const { message } = await request(app)
+    const { user } = await request(app)
       .post('/user')
-      .send(user)
+      .send(userModel)
       .then(res => res.body);
 
-    expect(message.length > 0).toBe(true);
+    expect(user).toBe(1);
+  });
+
+  it('should login a user', async () => {
+    const { user, token } = await request(app)
+      .get('/user/login')
+      .auth(userModel.email, userModel.password)
+      .then(res => res.body);
+
+    userModel.id = user;
+    userModel.token = token;
+
+    expect(user).toBe(1);
   });
 
   it('should not create an user, email exists', async () => {
