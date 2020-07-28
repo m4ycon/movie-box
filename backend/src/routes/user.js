@@ -22,13 +22,13 @@ routes
     const { name, email, password } = req.body;
 
     try {
-      const { error, id } = await userController.create({
+      const { status, error, id } = await userController.create({
         name,
         email,
         password,
       });
 
-      if (error) return res.status(400).json({ error });
+      if (error) return res.status(status).json({ error });
 
       const token = jwt.signIn({ user: id });
 
@@ -44,12 +44,12 @@ routes.get('/user/login', async (req, res) => {
   const [email, password] = Buffer.from(hash, 'base64').toString().split(':');
 
   try {
-    const { error, user } = await userController.login(email, password);
-    if (error) return res.status(401).send({ error });
+    const { status, error, user } = await userController.login(email, password);
+    if (error) return res.status(status).send({ error });
 
     const token = jwt.signIn({ user });
 
-    res.json({ user, token });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -67,9 +67,10 @@ routes.get('/user/find', async (req, res) => {
       return acc;
     }, {});
 
-  const users = await userController.find(wheres);
+  const { status, error, users } = await userController.find(wheres);
+  if (error) return res.status(status).json({ error });
 
-  res.status(200).json(users);
+  res.status(200).json({ users });
 });
 
 routes
@@ -77,9 +78,11 @@ routes
   .all(authMiddleware)
   .get(async (req, res) => {
     const { id } = req.params;
-    const { moviesWatched, error } = await userController.getWatched(id);
+    const { status, moviesWatched, error } = await userController.getWatched(
+      id
+    );
 
-    if (error) return res.status(404).json({ error });
+    if (error) return res.status(status).json({ error });
 
     res.status(200).json({ moviesWatched });
   })
@@ -87,8 +90,8 @@ routes
     const { id } = req.params;
     const { movie } = req.query;
 
-    const { error } = await userController.setWatched(id, movie);
-    if (error) return res.status(404).json({ error });
+    const { status, error } = await userController.setWatched(id, movie);
+    if (error) return res.status(status).json({ error });
 
     res.status(200).send();
   })
@@ -96,8 +99,8 @@ routes
     const { id } = req.params;
     const { movie } = req.query;
 
-    const { error } = await userController.delWatched(id, movie);
-    if (error) return res.status(400).json({ error });
+    const { status, error } = await userController.delWatched(id, movie);
+    if (error) return res.status(status).json({ error });
 
     res.status(200).send();
   });
@@ -107,9 +110,11 @@ routes
   .all(authMiddleware)
   .get(async (req, res) => {
     const { id } = req.params;
-    const { watchLater, error } = await userController.getWatchLater(id);
+    const { status, error, watchLater } = await userController.getWatchLater(
+      id
+    );
 
-    if (error) return res.status(404).json({ error });
+    if (error) return res.status(status).json({ error });
 
     res.status(200).json({ watchLater });
   })
@@ -117,8 +122,8 @@ routes
     const { id } = req.params;
     const { movie } = req.query;
 
-    const { error } = await userController.setWatchLater(id, movie);
-    if (error) return res.status(404).json({ error });
+    const { status, error } = await userController.setWatchLater(id, movie);
+    if (error) return res.status(status).json({ error });
 
     res.status(200).send();
   })
@@ -126,8 +131,8 @@ routes
     const { id } = req.params;
     const { movie } = req.query;
 
-    const { error } = await userController.delWatchLater(id, movie);
-    if (error) return res.status(400).json({ error });
+    const { status, error } = await userController.delWatchLater(id, movie);
+    if (error) return res.status(status).json({ error });
 
     res.status(200).send();
   });

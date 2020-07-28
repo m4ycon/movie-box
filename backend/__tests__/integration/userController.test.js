@@ -20,15 +20,15 @@ describe('User Controller', () => {
   });
 
   it('should login a user', async () => {
-    const { user, token } = await request(app)
+    const res = await request(app)
       .get('/user/login')
       .auth(userModel.email, userModel.password)
       .then(res => res.body);
 
-    userModel.id = user;
-    userModel.token = token;
+    userModel.id = res.user;
+    userModel.token = res.token;
 
-    expect(user).toBe(1);
+    expect(res.user).toBe(1);
   });
 
   it('should not create an user, email exists', async () => {
@@ -59,12 +59,12 @@ describe('User Controller', () => {
   });
 
   it('should find this user', async () => {
-    const response = await request(app)
+    const { users } = await request(app)
       .get('/user/find')
       .query({ email: userModel.email })
       .then(res => res.body);
 
-    expect(response[0].id).toBe(userModel.id);
+    expect(users[0].id).toBe(userModel.id);
   });
 
   it('should get watched list', async () => {

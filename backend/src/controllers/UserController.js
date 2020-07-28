@@ -10,8 +10,8 @@ class UserController {
   async index() {
     try {
       return await connection(this._table).select('*');
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -20,7 +20,8 @@ class UserController {
       const { name, email, password } = user;
 
       const emailExists = await this.find({ email });
-      if (emailExists.length) return { error: 'Email already registered' };
+      if (emailExists.length)
+        return { status: 400, error: 'Email already registered' };
 
       const hashPassword = await this._hashPassword(password);
 
@@ -36,28 +37,28 @@ class UserController {
         .then(res => res[0]);
 
       return { id };
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
   async find(where) {
     try {
       const result = await connection(this._table).where(where);
-      if (!result.length) return { message: 'User not found.' };
+      if (!result.length) return { status: 404, error: 'User not found.' };
 
-      return result;
-    } catch (err) {
-      throw err;
+      return { users: result };
+    } catch (error) {
+      throw error;
     }
   }
 
   async login(email, password) {
-    const user = await this.find({ email }).then(res => res[0]);
-    if (!user) return { error: 'Unregistered email' };
+    const user = await this.find({ email }).then(res => res.users[0]);
+    if (!user) return { status: 400, error: 'Unregistered email' };
 
     const isMatch = await this._comparePasswords(password, user.password);
-    if (!isMatch) return { error: 'Invalid password' };
+    if (!isMatch) return { status: 401, error: 'Invalid password' };
 
     return { user: user.id };
   }
@@ -89,7 +90,7 @@ class UserController {
   async _getList(userID, listName) {
     try {
       const userExists = await this._userExists(userID);
-      if (!userExists) return { error: 'User not found.' };
+      if (!userExists) return { status: 404, error: 'User not found.' };
 
       let { [listName]: list } = await connection(this._table)
         .select(listName)
@@ -100,8 +101,8 @@ class UserController {
 
       listName = snakeToCamelCase(listName);
       return { [listName]: list };
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -128,15 +129,15 @@ class UserController {
         })
         .where({ id: userID });
       return {};
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
   async _delList(userID, movieID, listName) {
     try {
       const userExists = await this._userExists(userID);
-      if (!userExists) return { error: 'User not found.' };
+      if (!userExists) return { status: 404, error: 'User not found.' };
 
       let { [listName]: list } = await connection(this._table)
         .select(listName)
@@ -153,8 +154,8 @@ class UserController {
         .where({ id: userID });
 
       return {};
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -181,8 +182,8 @@ class UserController {
       const hashPassword = await bcrypt.hash(password, salt);
 
       return hashPassword;
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 
@@ -190,8 +191,8 @@ class UserController {
     try {
       const isMatch = await bcrypt.compare(password, hashPassword);
       return isMatch;
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw error;
     }
   }
 }
