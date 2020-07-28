@@ -137,4 +137,8 @@ routes
     res.status(200).send();
   });
 
+routes.get('/me/:id', authMiddleware, (req, res) => {
+  res.status(200).send({ user: req.auth });
+});
+
 export default routes;
