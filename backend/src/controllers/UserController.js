@@ -106,9 +106,11 @@ class UserController {
   }
 
   async _setList(userID, movieID, listName) {
+    if (!movieID) return { status: 400, error: 'Movie ID must be provided' };
+
     try {
       const userExists = await this._userExists(userID);
-      if (!userExists) return { error: 'User not found.' };
+      if (!userExists) return { status: 404, error: 'User not found.' };
 
       let { [listName]: list } = await connection(this._table)
         .select(listName)
@@ -118,7 +120,7 @@ class UserController {
       list = this._formatList(list);
 
       if (list.includes(Number(movieID)))
-        return { error: 'Movie ID already in the list' };
+        return { status: 400, error: 'Movie ID already in the list' };
 
       await connection(this._table)
         .update({
