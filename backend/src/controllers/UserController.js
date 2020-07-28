@@ -36,6 +36,7 @@ class UserController {
         )
         .then(res => res[0]);
 
+      if (typeof id === 'object') return id;
       return { id };
     } catch (error) {
       throw error;

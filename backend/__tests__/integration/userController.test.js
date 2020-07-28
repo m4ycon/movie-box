@@ -11,12 +11,12 @@ const userModel = {
 
 describe('User Controller', () => {
   it('should create an user', async () => {
-    const { user } = await request(app)
+    const res = await request(app)
       .post('/user')
       .send(userModel)
       .then(res => res.body);
 
-    expect(user).toBe(1);
+    expect(res.user).toBe(1);
   });
 
   it('should login a user', async () => {
