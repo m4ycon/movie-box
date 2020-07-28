@@ -34,7 +34,7 @@ class UserController {
           ['id']
         )
         .then(res => res[0]);
-        
+
       return { id };
     } catch (err) {
       throw err;
@@ -116,6 +116,9 @@ class UserController {
         .then(res => res[0]);
 
       list = this._formatList(list);
+
+      if (list.includes(Number(movieID)))
+        return { error: 'Movie ID already in the list' };
 
       await connection(this._table)
         .update({
