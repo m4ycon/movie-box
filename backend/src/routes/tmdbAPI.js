@@ -78,4 +78,15 @@ routes.get('/movies/recommended', async (req, res) => {
   }
 });
 
+routes.get('/movies/top-rated', async (req, res) => {
+  const { size } = req.query;
+
+  try {
+    const topRated = await tmdbController.getTopRated(size);
+    res.status(200).json(topRated);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 export default routes;

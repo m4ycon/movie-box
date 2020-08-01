@@ -89,7 +89,6 @@ class TmdbController {
           Math.random() * (popList.results.length - 1)
         );
         let randomMovieID = popList.results[randomIndex].id;
-        console.log(randomIndex, randomMovieID);
 
         response = await api
           .get(`movie/${randomMovieID}/recommendations?language=en-US`)
@@ -102,6 +101,23 @@ class TmdbController {
       });
 
       return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getTopRated(size = 'original') {
+    try {
+      const topRatedList = await api
+        .get('/movie/top_rated')
+        .then(res => res.data);
+
+      topRatedList.results.map(e => {
+        e.backdrop_path = this._formatImageURL(e.backdrop_path, size);
+        e.poster_path = this._formatImageURL(e.poster_path, size);
+      });
+
+      return topRatedList;
     } catch (error) {
       throw error;
     }
