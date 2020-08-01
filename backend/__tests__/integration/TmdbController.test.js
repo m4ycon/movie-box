@@ -57,4 +57,12 @@ describe('TMDB Controller', () => {
 
     expect(response.results.length > 0).toBe(true);
   });
+
+  it('should get top rated movies', async () => {
+    const response = await request(app)
+      .get('/movies/top-rated')
+      .then(res => res.body);
+
+    expect(response.results.length > 0).toBe(true);
+  });
 });
