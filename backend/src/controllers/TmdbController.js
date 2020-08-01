@@ -61,18 +61,23 @@ class TmdbController {
 
   async getMovie(id, size = 'original') {
     try {
-      const response = await api.get(`movie/${id}`).then(res => res.data);
+      const movie = await api.get(`movie/${id}`).then(res => res.data);
 
-      response.poster_path = this._formatImageURL(response.poster_path, size);
-      response.backdrop_path = this._formatImageURL(
-        response.backdrop_path,
-        size
-      );
-      response.production_companies.map(e => {
+      movie.poster_path = this._formatImageURL(movie.poster_path, size);
+      movie.backdrop_path = this._formatImageURL(movie.backdrop_path, size);
+      movie.production_companies.map(e => {
         e.logo_path = this._formatImageURL(e.logo_path);
       });
 
-      return response;
+      const movieCredits = await api
+        .get(`movie/${id}/credits`)
+        .then(res => res.data.cast);
+      movieCredits.map(
+        e => (e.profile_path = this._formatImageURL(e.profile_path, size))
+      );
+      movie.credits = movieCredits;
+
+      return movie;
     } catch (err) {
       throw err;
     }
