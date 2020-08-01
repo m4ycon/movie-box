@@ -49,4 +49,12 @@ describe('TMDB Controller', () => {
 
     expect(response.status).toBe(400);
   });
+
+  it('should get recommended movies', async () => {
+    const response = await request(app)
+      .get('/movies/recommended')
+      .then(res => res.body);
+
+    expect(response.results.length > 0).toBe(true);
+  });
 });
