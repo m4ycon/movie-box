@@ -81,14 +81,20 @@ class TmdbController {
   async getRecommended(size = 'original') {
     try {
       const popList = await this.getPopular(size);
-      const randomIndex = Math.round(
-        Math.random() * (popList.results.length - 1)
-      );
-      const randomMovieID = popList.results[randomIndex].id;
 
-      const response = await api
-        .get(`movie/${randomMovieID}/recommendations?language=en-US`)
-        .then(res => res.data);
+      let response = { results: [] };
+
+      while (!response.results.length) {
+        let randomIndex = Math.round(
+          Math.random() * (popList.results.length - 1)
+        );
+        let randomMovieID = popList.results[randomIndex].id;
+        console.log(randomIndex, randomMovieID);
+
+        response = await api
+          .get(`movie/${randomMovieID}/recommendations?language=en-US`)
+          .then(res => res.data);
+      }
 
       response.results.map(e => {
         e.backdrop_path = this._formatImageURL(e.backdrop_path, size);
