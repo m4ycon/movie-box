@@ -22,7 +22,7 @@ describe('TMDB Controller', () => {
 
   it('should get popular movies list', async () => {
     const response = await request(app)
-      .get('/movie/popular')
+      .get('/movies/popular')
       .then(res => res.body);
 
     expect(response.results.length > 0).toBe(true);
@@ -30,7 +30,7 @@ describe('TMDB Controller', () => {
 
   it('should search movies', async () => {
     const response = await request(app)
-      .get('/movie/search?movie=joker')
+      .get('/movies/search?movie=joker')
       .then(res => res.body);
 
     expect(response.results.length > 0).toBe(true);
