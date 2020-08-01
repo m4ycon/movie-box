@@ -128,6 +128,17 @@ class TmdbController {
     }
   }
 
+  async getActor(id, size = 'original') {
+    try {
+      const actor = await api.get(`/person/${id}`).then(res => res.data);
+      actor.profile_path = this._formatImageURL(actor.profile_path, size);
+
+      return actor;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   _formatImageURL(path, size = 'original') {
     return path ? this.imageURL + size + path : path;
   }

@@ -89,4 +89,16 @@ routes.get('/movies/top-rated', async (req, res) => {
   }
 });
 
+routes.get('/actor/:id', async (req, res) => {
+  const { id } = req.params;
+  const { size } = req.query;
+
+  try {
+    const actor = await tmdbController.getActor(id, size);
+    res.send(actor);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
 export default routes;
