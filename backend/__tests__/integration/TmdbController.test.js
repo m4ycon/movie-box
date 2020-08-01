@@ -65,4 +65,12 @@ describe('TMDB Controller', () => {
 
     expect(response.results.length > 0).toBe(true);
   });
+
+  it('should get actor details', async () => {
+    const response = await request(app)
+      .get('/actor/192')
+      .then(res => res.body);
+
+    expect(response.name).toBe('Morgan Freeman');
+  });
 });
