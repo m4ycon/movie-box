@@ -21,7 +21,7 @@ routes.get('/movie/:id/image_list', async (req, res) => {
   }
 });
 
-routes.get('/movie/popular', async (req, res) => {
+routes.get('/movies/popular', async (req, res) => {
   const { size } = req.query;
 
   try {
@@ -36,7 +36,7 @@ routes.get('/movie/popular', async (req, res) => {
   }
 });
 
-routes.get('/movie/search', async (req, res) => {
+routes.get('/movies/search', async (req, res) => {
   const { movie, page, size } = req.query;
 
   try {
@@ -63,6 +63,17 @@ routes.get('/movie/:id', async (req, res) => {
     const apiError = error.response.data.status_message;
     if (apiError) return res.status(400).json({ error: apiError });
 
+    res.status(400).json({ error });
+  }
+});
+
+routes.get('/movies/recommended', async (req, res) => {
+  const { size } = req.query;
+
+  try {
+    const recommended = await tmdbController.getRecommended(size);
+    res.status(200).json(recommended);
+  } catch (error) {
     res.status(400).json({ error });
   }
 });

@@ -28,7 +28,7 @@ class TmdbController {
   async getPopular(size = 'original') {
     try {
       const response = await api
-        .get('/movie/popular?language=pt-BR')
+        .get('/movie/popular?language=en,none')
         .then(res => res.data);
 
       response.results.map(e => {
@@ -75,6 +75,29 @@ class TmdbController {
       return response;
     } catch (err) {
       throw err;
+    }
+  }
+
+  async getRecommended(size = 'original') {
+    try {
+      const popList = await this.getPopular(size);
+      const randomIndex = Math.round(
+        Math.random() * (popList.results.length - 1)
+      );
+      const randomMovieID = popList.results[randomIndex].id;
+
+      const response = await api
+        .get(`movie/${randomMovieID}/recommendations?language=en-US`)
+        .then(res => res.data);
+
+      response.results.map(e => {
+        e.backdrop_path = this._formatImageURL(e.backdrop_path, size);
+        e.poster_path = this._formatImageURL(e.poster_path, size);
+      });
+
+      return response;
+    } catch (error) {
+      throw error;
     }
   }
 
