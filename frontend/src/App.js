@@ -1,10 +1,12 @@
 import React from 'react';
+import Home from './pages/Home';
+
 import './global.scss';
 
 export default () => {
   return (
     <>
-      <h1>Hello World!</h1>
+      <Home />
     </>
   );
 };
