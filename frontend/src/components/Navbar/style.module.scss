@@ -1,0 +1,138 @@
+@import '../../styles/variables.scss';
+
+.navbarMenu {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.logo,
+.userSection {
+  display: none;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+
+  .searchInput {
+    border-radius: $border-radius-s;
+    border: none;
+    font-size: 0.9em;
+
+    padding: 8px 16px;
+    margin-right: 8px;
+  }
+}
+
+.menuBtn,
+.searchBtn {
+  background-color: transparent;
+  color: $color-b;
+  transform: rotateY(180deg);
+
+  border: none;
+  font-size: 0.9em;
+  transition: all 200ms;
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: rotateY(180deg) scale(0.95);
+  }
+}
+
+@media (min-width: 620px) {
+  .logo,
+  .userSection {
+    display: block;
+  }
+
+  .menuBtn {
+    display: none;
+  }
+
+  .navbarMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    a {
+      text-decoration: none;
+    }
+
+    .logo {
+      background-color: transparent;
+      color: $color-b;
+      font-size: 2em;
+      border: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .userBtn {
+      background-color: transparent;
+      color: $text-color-primary;
+      border: 0;
+
+      padding: 8px 0;
+
+      font-size: 1em;
+      text-align: center;
+
+      position: relative;
+
+      &:not(:first-of-type) {
+        margin-left: 16px;
+      }
+
+      &:hover,
+      &:active {
+        cursor: pointer;
+      }
+
+      &.login {
+        background-color: $color-b;
+        color: black;
+
+        border-radius: $border-radius-m;
+        padding: 8px 16px;
+
+        &:hover {
+          filter: brightness(0.95);
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+
+      &:not(.login):hover::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        width: auto;
+        height: 3px;
+
+        background-color: $color-b;
+      }
+    }
+  }
+}

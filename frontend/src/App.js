@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './pages/Home';
 
-import './global.scss';
+import './styles/global.scss';
 
 export default () => {
   return (
