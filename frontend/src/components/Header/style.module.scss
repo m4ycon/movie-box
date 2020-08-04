@@ -50,7 +50,7 @@
 
   .userSection {
     position: absolute;
-    top: 48px;
+    top: 64px;
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -88,8 +88,10 @@
       border-radius: $border-radius-m;
       padding: 8px 16px;
 
+      transition: background-color 300ms;
+
       &:hover {
-        filter: brightness(0.95);
+        background-color: $color-a;
       }
 
       &:active {
@@ -118,7 +120,7 @@
     justify-content: space-between;
     align-items: center;
 
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
 
     a {
