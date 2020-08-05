@@ -1,0 +1,25 @@
+.carrousel {
+  position: relative;
+  width: 80%;
+  height: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  .trackContainer {
+    position: relative;
+    height: 100%;
+
+    .track {
+      list-style: none;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
