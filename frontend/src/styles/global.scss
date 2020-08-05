@@ -13,3 +13,12 @@ body {
   box-sizing: border-box;
   outline: 0;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
