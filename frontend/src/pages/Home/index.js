@@ -8,6 +8,7 @@ import Carrousel from '../../components/Carrousel';
 
 export default () => {
   const [popular, setPopular] = useState({ results: [] });
+  const [currentPopIndex, setCurrentPopIndex] = useState(0);
 
   useEffect(() => {
     (async function getPopular() {
@@ -20,7 +21,7 @@ export default () => {
     <>
       <Header />
       <main>
-        <Carrousel slides={popular.results}>
+        <Carrousel currentSlideIndex={currentPopIndex}>
           {popular.results.map(movie => (
             <img
               key={movie.id}
@@ -30,6 +31,15 @@ export default () => {
             />
           ))}
         </Carrousel>
+        <button
+          onClick={() =>
+            currentPopIndex === popular.results.length - 1
+              ? setCurrentPopIndex(0)
+              : setCurrentPopIndex(currentPopIndex + 1)
+          }
+        >
+          Próximo
+        </button>
       </main>
     </>
   );
