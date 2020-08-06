@@ -7,22 +7,26 @@ import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
 
 export default () => {
-  const [popular, setPopular] = useState({ results: [] });
+  const [popular, setPopular] = useState([]);
   const [currentPopIndex, setCurrentPopIndex] = useState(0);
 
   useEffect(() => {
-    (async function getPopular() {
-      const data = await api.get('/movies/popular').then(res => res.data);
-      setPopular(data);
-    })();
+    api
+      .get('/movies/popular')
+      .then(res => res.data)
+      .then(res => setPopular(res.results));
   }, []);
 
   return (
     <>
       <Header />
       <main>
-        <Carrousel currentSlideIndex={currentPopIndex}>
-          {popular.results.map(movie => (
+        <Carrousel
+          currentSlideIndex={currentPopIndex}
+          setCurrentSlideIndex={setCurrentPopIndex}
+          contentList={popular}
+        >
+          {popular.map(movie => (
             <img
               key={movie.id}
               className={styles.image}
@@ -31,15 +35,6 @@ export default () => {
             />
           ))}
         </Carrousel>
-        <button
-          onClick={() =>
-            currentPopIndex === popular.results.length - 1
-              ? setCurrentPopIndex(0)
-              : setCurrentPopIndex(currentPopIndex + 1)
-          }
-        >
-          Próximo
-        </button>
       </main>
     </>
   );
