@@ -7,24 +7,48 @@ export default ({
   children,
   setCurrentSlideIndex,
   currentSlideIndex,
-  contentList,
+  listLength,
+  timer = null,
 }) => {
   const [currentSlide, setCurrentSlide] = useState('');
+  const [indicators, setIndicators] = useState([]);
+
+  useEffect(() => {
+    for (let i = 0; i < listLength; i++) {
+      setIndicators(prev => [...prev, i]);
+    }
+  }, [listLength]);
+
+  useEffect(() => {
+    console.log(indicators);
+  }, [indicators]);
 
   useEffect(() => {
     setCurrentSlide(Children.toArray(children)[currentSlideIndex]);
   }, [children]);
 
   const handleIndicatorClick = index => setCurrentSlideIndex(index);
+
   const handleLeftClick = () =>
     currentSlideIndex === 0
-      ? setCurrentSlideIndex(contentList.length - 1)
+      ? setCurrentSlideIndex(listLength - 1)
       : setCurrentSlideIndex(currentSlideIndex - 1);
 
   const handleRightClick = () =>
-    currentSlideIndex === contentList.length - 1
+    currentSlideIndex === listLength - 1
       ? setCurrentSlideIndex(0)
       : setCurrentSlideIndex(currentSlideIndex + 1);
+
+  useEffect(() => {
+    if (timer) {
+      const interval = setInterval(() => {
+        handleRightClick();
+      }, timer);
+
+      return () => clearInterval(interval);
+    }
+  });
+
   return (
     <section className={styles.carrousel}>
       <button
@@ -48,7 +72,7 @@ export default ({
       </button>
 
       <div className={styles.nav}>
-        {contentList.map((e, i) => (
+        {indicators.map((e, i) => (
           <button
             key={i}
             onClick={() => handleIndicatorClick(i)}

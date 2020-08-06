@@ -22,9 +22,10 @@ export default () => {
       <Header />
       <main>
         <Carrousel
+          listLength={popular.length}
           currentSlideIndex={currentPopIndex}
           setCurrentSlideIndex={setCurrentPopIndex}
-          contentList={popular}
+          timer={8000}
         >
           {popular.map(movie => (
             <img
