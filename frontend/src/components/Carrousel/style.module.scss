@@ -62,9 +62,9 @@
     .indicator {
       background-color: $color-c;
       width: 10px;
-      height: 4px;
+      height: 8px;
       border: 0;
-      border-radius: 2px;
+      border-radius: 3px;
       cursor: pointer;
 
       & + .indicator {
@@ -74,6 +74,26 @@
       &.currentIndicator {
         background-color: $color-b;
       }
+
+      @media (min-width: 700px) {
+        height: 5px;
+      }
     }
+  }
+
+  @media (min-width: 700px) {
+    height: 350px;
+  }
+
+  @media (min-width: 1000px) {
+    height: 500px;
+  }
+
+  @media (min-width: 1600px) {
+    height: 650px;
+  }
+
+  @media (min-width: 2000px) {
+    height: 850px;
   }
 }
