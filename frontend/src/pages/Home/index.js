@@ -8,7 +8,6 @@ import Carrousel from '../../components/Carrousel';
 
 export default () => {
   const [popular, setPopular] = useState([]);
-  const [currentPopIndex, setCurrentPopIndex] = useState(0);
 
   useEffect(() => {
     api
@@ -21,12 +20,7 @@ export default () => {
     <>
       <Header />
       <main>
-        <Carrousel
-          listLength={popular.length}
-          currentSlideIndex={currentPopIndex}
-          setCurrentSlideIndex={setCurrentPopIndex}
-          timer={8000}
-        >
+        <Carrousel listLength={popular.length} timer={8000}>
           {popular.map(movie => (
             <img
               key={movie.id}

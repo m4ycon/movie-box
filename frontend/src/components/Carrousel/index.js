@@ -3,15 +3,14 @@ import React, { useState, Children, useEffect } from 'react';
 import styles from './style.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-export default ({
-  children,
-  setCurrentSlideIndex,
-  currentSlideIndex,
-  listLength,
-  timer = null,
-}) => {
+export default ({ children, listLength, timer = null }) => {
   const [currentSlide, setCurrentSlide] = useState('');
   const [indicators, setIndicators] = useState([]);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentSlide(Children.toArray(children)[0]);
+  }, [children]);
 
   useEffect(() => {
     for (let i = 0; i < listLength; i++) {
@@ -20,12 +19,8 @@ export default ({
   }, [listLength]);
 
   useEffect(() => {
-    console.log(indicators);
-  }, [indicators]);
-
-  useEffect(() => {
     setCurrentSlide(Children.toArray(children)[currentSlideIndex]);
-  }, [children]);
+  }, [currentSlideIndex]);
 
   const handleIndicatorClick = index => setCurrentSlideIndex(index);
 
