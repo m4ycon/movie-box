@@ -4,23 +4,14 @@ import styles from './style.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 export default ({ children, listLength, timer = null }) => {
-  const [currentSlide, setCurrentSlide] = useState('');
   const [indicators, setIndicators] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-  useEffect(() => {
-    setCurrentSlide(Children.toArray(children)[0]);
-  }, [children]);
 
   useEffect(() => {
     for (let i = 0; i < listLength; i++) {
       setIndicators(prev => [...prev, i]);
     }
   }, [listLength]);
-
-  useEffect(() => {
-    setCurrentSlide(Children.toArray(children)[currentSlideIndex]);
-  }, [currentSlideIndex]);
 
   const handleIndicatorClick = index => setCurrentSlideIndex(index);
 
@@ -55,7 +46,16 @@ export default ({ children, listLength, timer = null }) => {
 
       <div className={styles.trackContainer}>
         <ul className={styles.track}>
-          <li className={styles.slide}>{currentSlide}</li>
+          {Children.toArray(children).map((child, i) => (
+            <li
+              key={i}
+              className={`${styles.slide} ${
+                currentSlideIndex === i ? styles.currentSlide : ''
+              }`}
+            >
+              {child}
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -71,11 +71,9 @@ export default ({ children, listLength, timer = null }) => {
           <button
             key={i}
             onClick={() => handleIndicatorClick(i)}
-            className={
-              i === currentSlideIndex
-                ? `${styles.indicator} ${styles.currentIndicator}`
-                : styles.indicator
-            }
+            className={`${styles.indicator} ${
+              i === currentSlideIndex ? styles.currentIndicator : ''
+            }`}
           ></button>
         ))}
       </div>
