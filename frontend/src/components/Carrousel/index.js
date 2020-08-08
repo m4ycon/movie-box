@@ -3,25 +3,26 @@ import React, { useState, Children, useEffect } from 'react';
 import styles from './style.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-export default ({ children, listLength, timer = null }) => {
-  const [indicators, setIndicators] = useState([]);
+export default ({ children, timer = null }) => {
+  const [slides, setSlides] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [slidesLength, setSlidesLength] = useState(0);
 
   useEffect(() => {
-    for (let i = 0; i < listLength; i++) {
-      setIndicators(prev => [...prev, i]);
-    }
-  }, [listLength]);
+    const array = Children.toArray(children);
+    setSlides(array);
+    setSlidesLength(array.length);
+  }, [children]);
 
   const handleIndicatorClick = index => setCurrentSlideIndex(index);
 
   const handleLeftClick = () =>
     currentSlideIndex === 0
-      ? setCurrentSlideIndex(listLength - 1)
+      ? setCurrentSlideIndex(slidesLength - 1)
       : setCurrentSlideIndex(currentSlideIndex - 1);
 
   const handleRightClick = () =>
-    currentSlideIndex === listLength - 1
+    currentSlideIndex === slidesLength - 1
       ? setCurrentSlideIndex(0)
       : setCurrentSlideIndex(currentSlideIndex + 1);
 
@@ -41,12 +42,12 @@ export default ({ children, listLength, timer = null }) => {
         className={`${styles.carrouselBtn} ${styles.carrouselBtnLeft}`}
         onClick={handleLeftClick}
       >
-        <FiChevronLeft size={25} />
+        <FiChevronLeft size={40} />
       </button>
 
       <div className={styles.trackContainer}>
         <ul className={styles.track}>
-          {Children.toArray(children).map((child, i) => (
+          {slides.map((child, i) => (
             <li
               key={i}
               className={`${styles.slide} ${
@@ -63,11 +64,11 @@ export default ({ children, listLength, timer = null }) => {
         className={`${styles.carrouselBtn} ${styles.carrouselBtnRight}`}
         onClick={handleRightClick}
       >
-        <FiChevronRight size={25} />
+        <FiChevronRight size={40} />
       </button>
 
       <div className={styles.nav}>
-        {indicators.map((e, i) => (
+        {slides.map((e, i) => (
           <button
             key={i}
             onClick={() => handleIndicatorClick(i)}

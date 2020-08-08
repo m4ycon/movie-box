@@ -20,7 +20,7 @@ export default () => {
     <>
       <Header />
       <main>
-        <Carrousel listLength={popular.length} timer={8000}>
+        <Carrousel timer={8000}>
           {popular.map(movie => (
             <img
               key={movie.id}
