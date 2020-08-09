@@ -24,3 +24,24 @@ main {
   max-width: 1000px;
   margin: 0 auto;
 }
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #555;
+  border-radius: 3.5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-b;
+  border-radius: 3.5px;
+
+  /* Handle on hover */
+  &:hover {
+    background: $color-c;
+  }
+}
