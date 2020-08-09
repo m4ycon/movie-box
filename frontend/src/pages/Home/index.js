@@ -36,7 +36,7 @@ export default () => {
     <>
       <Header />
       <main>
-        <Carrousel timer={8000}>
+        <Carrousel timer={2000}>
           {popular.map(movie => (
             <div key={movie.id} className={styles.movie}>
               <div className={styles.imageContainer}>

@@ -7,6 +7,7 @@ export default ({ children, timer = null }) => {
   const [slides, setSlides] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slidesLength, setSlidesLength] = useState(0);
+  const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
     const array = Children.toArray(children);
@@ -29,15 +30,22 @@ export default ({ children, timer = null }) => {
   useEffect(() => {
     if (timer) {
       const interval = setInterval(() => {
-        handleRightClick();
+        if (!isHover) handleRightClick();
       }, timer);
 
       return () => clearInterval(interval);
     }
   });
 
+  const mouseEnter = () => setIsHover(true);
+  const mouseLeave = () => setIsHover(false);
+
   return (
-    <section className={styles.carrousel}>
+    <section
+      className={styles.carrousel}
+      onMouseEnter={mouseEnter}
+      onMouseLeave={mouseLeave}
+    >
       <button
         className={`${styles.carrouselBtn} ${styles.carrouselBtnLeft}`}
         onClick={handleLeftClick}
