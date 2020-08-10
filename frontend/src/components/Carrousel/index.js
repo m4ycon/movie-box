@@ -3,7 +3,11 @@ import React, { useState, Children, useEffect } from 'react';
 import styles from './style.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-export default ({ children, timer = null }) => {
+export default ({
+  children,
+  arrowAndIndicatorPositionStyle = {},
+  timer = null,
+}) => {
   const [slides, setSlides] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [slidesLength, setSlidesLength] = useState(0);
@@ -46,12 +50,39 @@ export default ({ children, timer = null }) => {
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
     >
-      <button
-        className={`${styles.carrouselBtn} ${styles.carrouselBtnLeft}`}
-        onClick={handleLeftClick}
+      <div
+        style={{
+          position: 'relative',
+          height: '100%',
+          ...arrowAndIndicatorPositionStyle,
+        }}
       >
-        <FiChevronLeft size={40} />
-      </button>
+        <button
+          className={`${styles.carrouselBtn} ${styles.carrouselBtnLeft}`}
+          onClick={handleLeftClick}
+        >
+          <FiChevronLeft size={40} />
+        </button>
+
+        <button
+          className={`${styles.carrouselBtn} ${styles.carrouselBtnRight}`}
+          onClick={handleRightClick}
+        >
+          <FiChevronRight size={40} />
+        </button>
+
+        <div className={styles.nav}>
+          {slides.map((e, i) => (
+            <button
+              key={i}
+              onClick={() => handleIndicatorClick(i)}
+              className={`${styles.indicator} ${
+                i === currentSlideIndex ? styles.currentIndicator : ''
+              }`}
+            ></button>
+          ))}
+        </div>
+      </div>
 
       <div className={styles.trackContainer}>
         <ul className={styles.track}>
@@ -66,25 +97,6 @@ export default ({ children, timer = null }) => {
             </li>
           ))}
         </ul>
-      </div>
-
-      <button
-        className={`${styles.carrouselBtn} ${styles.carrouselBtnRight}`}
-        onClick={handleRightClick}
-      >
-        <FiChevronRight size={40} />
-      </button>
-
-      <div className={styles.nav}>
-        {slides.map((e, i) => (
-          <button
-            key={i}
-            onClick={() => handleIndicatorClick(i)}
-            className={`${styles.indicator} ${
-              i === currentSlideIndex ? styles.currentIndicator : ''
-            }`}
-          ></button>
-        ))}
       </div>
     </section>
   );

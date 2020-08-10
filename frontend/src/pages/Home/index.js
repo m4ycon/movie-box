@@ -9,6 +9,11 @@ import Carrousel from '../../components/Carrousel';
 export default () => {
   const [popular, setPopular] = useState([]);
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -41,7 +46,12 @@ export default () => {
       <Header />
       <main>
         <div className={styles.carrouselContainer}>
-          <Carrousel timer={8000}>
+          <Carrousel
+            arrowAndIndicatorPositionStyle={{
+              width: windowWidth > 700 ? '70%' : '100%',
+            }}
+            timer={8000}
+          >
             {popular.map(movie => (
               <div key={movie.id} className={styles.movie}>
                 <div className={styles.imageContainer}>
