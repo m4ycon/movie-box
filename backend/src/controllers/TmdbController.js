@@ -8,7 +8,7 @@ class TmdbController {
   async getImageList(id, size = 'original') {
     try {
       const response = await api
-        .get(`/movie/${id}/images?language=en,null`)
+        .get(`/movie/${id}/images?language=null`)
         .then(res => res.data);
 
       response.backdrops.map(e => {

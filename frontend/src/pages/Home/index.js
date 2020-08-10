@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../config/api';
+import api from '../../services/api';
 
 import styles from './style.module.scss';
 
@@ -10,33 +10,33 @@ export default () => {
   const [popular, setPopular] = useState([]);
 
   useEffect(() => {
-    getPopMovies();
+    const getData = async () => {
+      const moviesArr = await api
+        .get('/movies/popular')
+        .then(res => res.data.results);
+
+      const movies = await Promise.all(
+        moviesArr.map(async movie => {
+          const images = await api
+            .get(`/movie/${movie.id}/image_list`)
+            .then(res => res.data.backdrops)
+            .then(images => images.splice(0, 4).map(image => image.file_path));
+
+          return { ...movie, images };
+        })
+      );
+
+      setPopular(movies);
+    };
+
+    getData();
   }, []);
-
-  async function getPopMovies() {
-    const movies = await api
-      .get('/movies/popular')
-      .then(res => res.data.results);
-
-    movies.map(async movie => {
-      const images = await api
-        .get(`/movie/${movie.id}/image_list`)
-        .then(res => res.data.backdrops);
-      movie.images = images;
-    });
-
-    // retorna o objeto, com o array images
-    console.log(movies[3]); 
-    console.log(movies[3].images); // retorna undefined
-
-    setPopular(movies);
-  }
 
   return (
     <>
       <Header />
       <main>
-        <Carrousel timer={2000}>
+        <Carrousel timer={8000}>
           {popular.map(movie => (
             <div key={movie.id} className={styles.movie}>
               <div className={styles.imageContainer}>
@@ -51,10 +51,13 @@ export default () => {
 
                 <div className={styles.movieInfo}>
                   <div className={styles.previewContainer}>
-                    <img className={styles.imagePreview} src={movie.backdrop_path} />
-                    <img className={styles.imagePreview} src={movie.backdrop_path} />
-                    <img className={styles.imagePreview} src={movie.backdrop_path} />
-                    <img className={styles.imagePreview} src={movie.backdrop_path} />
+                    {movie.images.map((imageURL, i) => (
+                      <img
+                        key={i}
+                        className={styles.imagePreview}
+                        src={imageURL}
+                      />
+                    ))}
                   </div>
 
                   <p className={styles.overview}>{movie.overview}</p>
