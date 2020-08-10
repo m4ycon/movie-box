@@ -8,6 +8,7 @@ import Carrousel from '../../components/Carrousel';
 
 export default () => {
   const [popular, setPopular] = useState([]);
+  const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -32,6 +33,9 @@ export default () => {
     getData();
   }, []);
 
+  const handleHoverPreviewEnter = i => setHoverIndexPreview(i);
+  const handleHoverPreviewLeave = () => setHoverIndexPreview(0);
+
   return (
     <>
       <Header />
@@ -41,12 +45,17 @@ export default () => {
             {popular.map(movie => (
               <div key={movie.id} className={styles.movie}>
                 <div className={styles.imageContainer}>
-                  <img
-                    className={styles.image}
-                    src={movie.backdrop_path}
-                    alt={movie.title}
-                  />
+                  {movie.images.map((imageURL, i) => (
+                    <img
+                      key={i}
+                      className={`${styles.image} ${
+                        hoverIndexPreview === i ? styles.currentImage : ''
+                      }`}
+                      src={imageURL}
+                    />
+                  ))}
                 </div>
+
                 <div className={styles.movieInfoContainer}>
                   <h1 className={styles.title}>{movie.title}</h1>
 
@@ -54,6 +63,8 @@ export default () => {
                     <div className={styles.previewContainer}>
                       {movie.images.map((imageURL, i) => (
                         <img
+                          onMouseEnter={() => handleHoverPreviewEnter(i)}
+                          onMouseLeave={handleHoverPreviewLeave}
                           key={i}
                           className={styles.imagePreview}
                           src={imageURL}
