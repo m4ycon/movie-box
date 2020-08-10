@@ -36,48 +36,51 @@ export default () => {
     <>
       <Header />
       <main>
-        <Carrousel timer={8000}>
-          {popular.map(movie => (
-            <div key={movie.id} className={styles.movie}>
-              <div className={styles.imageContainer}>
-                <img
-                  className={styles.image}
-                  src={movie.backdrop_path}
-                  alt={movie.title}
-                />
-              </div>
-              <div className={styles.movieInfoContainer}>
-                <h1 className={styles.title}>{movie.title}</h1>
+        <div className={styles.carrouselContainer}>
+          <Carrousel timer={8000}>
+            {popular.map(movie => (
+              <div key={movie.id} className={styles.movie}>
+                <div className={styles.imageContainer}>
+                  <img
+                    className={styles.image}
+                    src={movie.backdrop_path}
+                    alt={movie.title}
+                  />
+                </div>
+                <div className={styles.movieInfoContainer}>
+                  <h1 className={styles.title}>{movie.title}</h1>
 
-                <div className={styles.movieInfo}>
-                  <div className={styles.previewContainer}>
-                    {movie.images.map((imageURL, i) => (
-                      <img
-                        key={i}
-                        className={styles.imagePreview}
-                        src={imageURL}
-                      />
-                    ))}
-                  </div>
+                  <div className={styles.movieInfo}>
+                    <div className={styles.previewContainer}>
+                      {movie.images.map((imageURL, i) => (
+                        <img
+                          key={i}
+                          className={styles.imagePreview}
+                          src={imageURL}
+                        />
+                      ))}
+                    </div>
 
-                  <p className={styles.overview}>{movie.overview}</p>
-                  <div className={styles.buttonsContainer}>
-                    <button
-                      className={`${styles.button} ${styles.buttonLater}`}
-                    >
-                      Watch Later
-                    </button>
-                    <button
-                      className={`${styles.button} ${styles.buttonWatched}`}
-                    >
-                      I watched
-                    </button>
+                    <p className={styles.overview}>{movie.overview}</p>
+
+                    <div className={styles.buttonsContainer}>
+                      <button
+                        className={`${styles.button} ${styles.buttonLater}`}
+                      >
+                        Watch Later
+                      </button>
+                      <button
+                        className={`${styles.button} ${styles.buttonWatched}`}
+                      >
+                        Watched
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </Carrousel>
+            ))}
+          </Carrousel>
+        </div>
       </main>
     </>
   );
