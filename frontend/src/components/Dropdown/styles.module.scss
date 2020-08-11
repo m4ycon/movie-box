@@ -1,0 +1,36 @@
+@import '../../styles/variables.scss';
+
+.btnDropdown {
+  $border-distance: 5px;
+  $button-size: 20px;
+
+  position: absolute;
+  top: $border-distance;
+  right: $border-distance;
+  cursor: pointer;
+  background-color: $color-e;
+  border: 0;
+  border-radius: $border-radius-s;
+
+  width: $button-size;
+  height: $button-size;
+
+  & + .dropdown {
+    position: absolute;
+    top: $border-distance;
+    right: $border-distance;
+
+    width: min-content;
+    list-style: none;
+    border-radius: $border-radius-s;
+    background-color: $color-e;
+
+    li {
+      margin: 3px;
+    }
+
+    &:hover {
+      display: block;
+    }
+  }
+}

@@ -6,6 +6,10 @@
   background-color: grey;
   position: relative;
 
+  &:hover {
+    box-shadow: 0 0 0 2px $color-d;
+  }
+
   & + .slide {
     margin-left: 5px;
   }
@@ -18,53 +22,27 @@
     border-radius: $border-radius-m;
   }
 
-  .btnDropdown {
-    $border-distance: 5px;
-    $button-size: 20px;
-
+  .dropdown {
     display: none;
     position: absolute;
-    top: $border-distance;
-    right: $border-distance;
-    cursor: pointer;
-    background-color: $color-e;
-    border: 0;
-    border-radius: $border-radius-s;
+    top: 0;
+    right: 0;
 
-    width: $button-size;
-    height: $button-size;
-
-    & + .dropdown {
-      display: none;
-      position: absolute;
-      top: $border-distance + $button-size;
-      right: $border-distance;
-      width: min-content;
+    .dropdownBtn {
+      border: 0;
+      color: white;
       background-color: $color-d;
-      list-style: none;
+      padding: 5px;
+      border-radius: $border-radius-s;
 
       &:hover {
-        display: block;
+        cursor: pointer;
+        background-color: darken($color-d, 10%);
       }
-
-      .dropdownItem {
-        color: whitesmoke;
-        padding: 2px 5px;
-        transition: background-color 300ms ease-in;
-
-        &:hover {
-          background-color: $color-e;
-          cursor: pointer;
-        }
-      }
-    }
-
-    &:hover + .dropdown {
-      display: block;
     }
   }
 
-  &:hover .btnDropdown {
+  &:hover .dropdown {
     display: block;
   }
 }
