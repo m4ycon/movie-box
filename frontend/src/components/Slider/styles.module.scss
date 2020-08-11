@@ -3,6 +3,23 @@
 .title {
   text-align: left;
   margin-bottom: 10px;
+
+  span {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: '';
+      height: 3px;
+      bottom: -4px;
+
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 90%;
+      background: $color-d;
+    }
+  }
 }
 
 .sliderContainer {
