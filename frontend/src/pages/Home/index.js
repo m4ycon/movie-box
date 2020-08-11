@@ -123,25 +123,27 @@ export default () => {
             ))}
           </Carrousel>
         </div>
-
-        <Slider title="Top Rated" height="175px">
-          {topRated.map(movie => (
-            <div
-              key={movie.id}
-              className={sliderItemStyle.slide}
-              title={movie.title}
-            >
-              <img src={movie.poster_path} alt={movie.title} />
-              <button className={sliderItemStyle.btnDropdown}>
-                <FiChevronsDown size={20} color="white" />
-              </button>
-              <ul className={sliderItemStyle.dropdown}>
-                <li className={sliderItemStyle.dropdownItem}>Watch Later</li>
-                <li className={sliderItemStyle.dropdownItem}>Watched</li>
-              </ul>
-            </div>
-          ))}
-        </Slider>
+        
+        <div className={sliderItemStyle.containerSlider}>
+          <Slider title="Top Rated" height="175px">
+            {topRated.map(movie => (
+              <div
+                key={movie.id}
+                className={sliderItemStyle.slide}
+                title={movie.title}
+              >
+                <img src={movie.poster_path} alt={movie.title} />
+                <button className={sliderItemStyle.btnDropdown}>
+                  <FiChevronsDown size={20} color="white" />
+                </button>
+                <ul className={sliderItemStyle.dropdown}>
+                  <li className={sliderItemStyle.dropdownItem}>Watch Later</li>
+                  <li className={sliderItemStyle.dropdownItem}>Watched</li>
+                </ul>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </main>
     </>
   );
