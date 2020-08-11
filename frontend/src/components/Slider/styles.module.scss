@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.title {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.sliderContainer {
+  display: flex;
+  height: 100px;
+  width: 95vw;
+  padding-bottom: 5px;
+
+  overflow-x: auto;
+
+  .slide {
+    min-width: 100px;
+    height: 100%;
+    background-color: grey;
+    border-radius: $border-radius-m;
+
+    & + .slide {
+      margin-left: 5px;
+    }
+  }
+
+}

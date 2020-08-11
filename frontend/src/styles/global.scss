@@ -16,6 +16,7 @@ body {
 
 main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -27,6 +28,7 @@ main {
 
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 /* Track */

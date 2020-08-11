@@ -5,6 +5,7 @@ import styles from './style.module.scss';
 
 import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
+import Slider from '../../components/Slider';
 
 export default () => {
   const [popular, setPopular] = useState([]);
@@ -105,6 +106,8 @@ export default () => {
             ))}
           </Carrousel>
         </div>
+
+        <Slider title="Top Rated" />
       </main>
     </>
   );
