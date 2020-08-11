@@ -8,6 +8,8 @@ import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
 import Slider from '../../components/Slider';
 
+import { FiChevronsDown } from 'react-icons/fi';
+
 export default () => {
   const [popular, setPopular] = useState([]);
   const [topRated, setTopRated] = useState([]);
@@ -130,6 +132,13 @@ export default () => {
               title={movie.title}
             >
               <img src={movie.poster_path} alt={movie.title} />
+              <button className={sliderItemStyle.btnDropdown}>
+                <FiChevronsDown size={20} color="white" />
+              </button>
+              <ul className={sliderItemStyle.dropdown}>
+                <li className={sliderItemStyle.dropdownItem}>Watch Later</li>
+                <li className={sliderItemStyle.dropdownItem}>Watched</li>
+              </ul>
             </div>
           ))}
         </Slider>
