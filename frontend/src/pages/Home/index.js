@@ -3,6 +3,7 @@ import api from '../../services/api';
 
 import carrouselItemStyle from './carrouselItem.module.scss';
 import sliderItemStyle from './sliderItem.module.scss';
+import styles from './styles.module.scss';
 
 import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
@@ -60,7 +61,7 @@ export default () => {
     <>
       <Header />
       <main>
-        <div className={carrouselItemStyle.carrouselContainer}>
+        <div className={styles.carrouselContainer}>
           <Carrousel
             arrowAndIndicatorPositionStyle={{
               width: windowWidth > 700 ? '70%' : '100%',
@@ -123,8 +124,8 @@ export default () => {
             ))}
           </Carrousel>
         </div>
-        
-        <div className={sliderItemStyle.containerSlider}>
+
+        <div className={styles.containerSlider}>
           <Slider title="Top Rated" height="175px">
             {topRated.map(movie => (
               <div
