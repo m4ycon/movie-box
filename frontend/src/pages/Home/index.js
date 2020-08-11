@@ -12,6 +12,7 @@ export default () => {
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
+    setWindowWidth(window.innerWidth);
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
   }, []);
 
@@ -67,7 +68,9 @@ export default () => {
                 </div>
 
                 <div className={styles.movieInfoContainer}>
-                  <h1 className={styles.title}>{movie.title}</h1>
+                  <h1 className={styles.title} title={movie.title}>
+                    {movie.title}
+                  </h1>
 
                   <div className={styles.movieInfo}>
                     <div className={styles.previewContainer}>
