@@ -2,12 +2,14 @@ import React from 'react';
 
 import styles from './styles.module.scss';
 
-export default function Slider({ title, children }) {
+export default function Slider({ title, children, height = '150px' }) {
   return (
     <div>
       <h2 className={styles.title}>{title}</h2>
 
-      <div className={styles.sliderContainer}>{children}</div>
+      <div style={{ height }} className={styles.sliderContainer}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default () => {
 
   useEffect(() => {
     api
-      .get('/movies/top-rated')
+      .get('/movies/top-rated?size=w500')
       .then(res => res.data.results)
       .then(arr => setTopRated(arr));
   }, []);
@@ -39,7 +39,9 @@ export default () => {
             .then(res => res.data.backdrops)
             .then(images => images.splice(0, 4).map(image => image.file_path));
 
-          return { ...movie, images };
+          return images.length
+            ? { ...movie, images }
+            : { ...movie, images: [movie.poster_path] };
         })
       );
 
@@ -120,7 +122,7 @@ export default () => {
           </Carrousel>
         </div>
 
-        <Slider title="Top Rated">
+        <Slider title="Top Rated" height="175px">
           {topRated.map(movie => (
             <div
               key={movie.id}
