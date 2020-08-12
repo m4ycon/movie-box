@@ -14,6 +14,8 @@ import Dropdown from '../../components/Dropdown';
 export default () => {
   const [popular, setPopular] = useState([]);
   const [topRated, setTopRated] = useState([]);
+  const [recommended, setRecommended] = useState([]);
+
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -47,8 +49,13 @@ export default () => {
         .get('/movies/top-rated?size=w500')
         .then(res => res.data.results);
 
-      setTopRated(topMovies);
+      const recommendedMovies = await api
+        .get('/movies/recommended')
+        .then(res => res.data.results);
+
       setPopular(popMovies);
+      setTopRated(topMovies);
+      setRecommended(recommendedMovies);
     })();
   }, []);
 
@@ -78,6 +85,7 @@ export default () => {
                           : ''
                       }`}
                       src={imageURL}
+                      alt={movie.title}
                     />
                   ))}
                 </div>
@@ -96,6 +104,7 @@ export default () => {
                           key={i}
                           className={carrouselItemStyle.imagePreview}
                           src={imageURL}
+                          alt={movie.title}
                         />
                       ))}
                     </div>
@@ -126,6 +135,31 @@ export default () => {
         <div className={styles.containerSlider}>
           <Slider title="Top Rated" height="175px">
             {topRated.map(movie => (
+              <div
+                key={movie.id}
+                className={sliderItemStyle.slide}
+                title={movie.title}
+              >
+                <img src={movie.poster_path} alt={movie.title} />
+
+                <div className={sliderItemStyle.dropdown}>
+                  <Dropdown>
+                    <button className={sliderItemStyle.dropdownBtn}>
+                      Watch Later
+                    </button>
+                    <button className={sliderItemStyle.dropdownBtn}>
+                      Watched
+                    </button>
+                  </Dropdown>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
+        <div className={styles.containerSlider}>
+          <Slider title="Recommended movies" height="175px">
+            {recommended.map(movie => (
               <div
                 key={movie.id}
                 className={sliderItemStyle.slide}
