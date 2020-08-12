@@ -14,6 +14,11 @@
 
   width: $button-size;
   height: $button-size;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: darken($color-e, 10%);
+  }
 
   & + .dropdown {
     position: absolute;
