@@ -1,5 +1,15 @@
 @import '../../styles/variables.scss';
 
+.container {
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: $color-e;
+    &:hover {
+      background-color: $color-d;
+    }
+  }
+}
+
 .title {
   text-align: left;
   margin-bottom: 10px;
@@ -17,7 +27,7 @@
       left: 0;
       right: 0;
       width: 90%;
-      background: $color-d;
+      background: $color-e;
     }
   }
 }

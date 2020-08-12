@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 export default function Slider({ title, children, height = '150px' }) {
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.title}>
         <span>{title}</span>
       </h2>

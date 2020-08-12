@@ -3,14 +3,6 @@
 .containerSlider {
   width: 95%;
   margin-top: 36px;
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: $color-e;
-    &:hover {
-      background: $color-d;
-    }
-  }
 }
 
 .carrouselContainer {
