@@ -20,38 +20,36 @@ export default () => {
   useEffect(() => {
     setWindowWidth(window.innerWidth);
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
-  }, []);
 
-  useEffect(() => {
-    api
-      .get('/movies/top-rated?size=w500')
-      .then(res => res.data.results)
-      .then(arr => setTopRated(arr));
-  }, []);
-
-  useEffect(() => {
-    const getData = async () => {
-      const moviesArr = await api
+    (async function () {
+      const popMovies = await api
         .get('/movies/popular')
+        .then(res => res.data.results)
+        .then(
+          async movies =>
+            await Promise.all(
+              movies.map(async movie => {
+                const images = await api
+                  .get(`/movie/${movie.id}/image_list`)
+                  .then(res => res.data.backdrops)
+                  .then(images =>
+                    images.splice(0, 4).map(image => image.file_path)
+                  );
+
+                return images.length
+                  ? { ...movie, images }
+                  : { ...movie, images: [movie.poster_path] };
+              })
+            )
+        );
+
+      const topMovies = await api
+        .get('/movies/top-rated?size=w500')
         .then(res => res.data.results);
 
-      const movies = await Promise.all(
-        moviesArr.map(async movie => {
-          const images = await api
-            .get(`/movie/${movie.id}/image_list`)
-            .then(res => res.data.backdrops)
-            .then(images => images.splice(0, 4).map(image => image.file_path));
-
-          return images.length
-            ? { ...movie, images }
-            : { ...movie, images: [movie.poster_path] };
-        })
-      );
-
-      setPopular(movies);
-    };
-
-    getData();
+      setTopRated(topMovies);
+      setPopular(popMovies);
+    })();
   }, []);
 
   const handleHoverPreviewEnter = i => setHoverIndexPreview(i);
