@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../services/api';
+import getMoviesController from '../../controllers/GetMoviesController';
 
 import carrouselItemStyle from './carrouselItem.module.scss';
 import sliderItemStyle from './sliderItem.module.scss';
@@ -19,44 +19,13 @@ export default () => {
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
 
-  useEffect(() => {
+  useEffect(async () => {
     setWindowWidth(window.innerWidth);
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
 
-    (async function () {
-      const popMovies = await api
-        .get('/movies/popular')
-        .then(res => res.data.results)
-        .then(
-          async movies =>
-            await Promise.all(
-              movies.map(async movie => {
-                const images = await api
-                  .get(`/movie/${movie.id}/image_list`)
-                  .then(res => res.data.backdrops)
-                  .then(images =>
-                    images.splice(0, 4).map(image => image.file_path)
-                  );
-
-                return images.length
-                  ? { ...movie, images }
-                  : { ...movie, images: [movie.poster_path] };
-              })
-            )
-        );
-
-      const topMovies = await api
-        .get('/movies/top-rated?size=w500')
-        .then(res => res.data.results);
-
-      const recommendedMovies = await api
-        .get('/movies/recommended')
-        .then(res => res.data.results);
-
-      setPopular(popMovies);
-      setTopRated(topMovies);
-      setRecommended(recommendedMovies);
-    })();
+    getMoviesController.popular().then(res => setPopular(res));
+    getMoviesController.topRated().then(res => setTopRated(res));
+    getMoviesController.recommended().then(res => setRecommended(res));
   }, []);
 
   const handleHoverPreviewEnter = i => setHoverIndexPreview(i);
@@ -158,7 +127,7 @@ export default () => {
         </div>
 
         <div className={styles.containerSlider}>
-          <Slider title="Recommended movies" height="175px">
+          <Slider title="Recommended Movies" height="175px">
             {recommended.map(movie => (
               <div
                 key={movie.id}
