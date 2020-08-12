@@ -19,7 +19,7 @@ export default () => {
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
     setWindowWidth(window.innerWidth);
     window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
 
