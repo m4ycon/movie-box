@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import getMoviesController from '../../controllers/GetMoviesController';
 
 import carrouselItemStyle from './carrouselItem.module.scss';
@@ -8,8 +9,8 @@ import styles from './styles.module.scss';
 import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
 import Slider from '../../components/Slider';
-
 import Dropdown from '../../components/Dropdown';
+import RateStars from '../../components/RateStars';
 
 export default () => {
   const [popular, setPopular] = useState([]);
@@ -83,16 +84,7 @@ export default () => {
                     </p>
 
                     <div className={carrouselItemStyle.buttonsContainer}>
-                      <button
-                        className={`${carrouselItemStyle.button} ${carrouselItemStyle.buttonLater}`}
-                      >
-                        Watch Later
-                      </button>
-                      <button
-                        className={`${carrouselItemStyle.button} ${carrouselItemStyle.buttonWatched}`}
-                      >
-                        Watched
-                      </button>
+                      <RateStars rating={movie.vote_average}/>
                     </div>
                   </div>
                 </div>
