@@ -30,6 +30,10 @@
 
   .movieInfo {
     padding: 10px;
+    display: grid;
+    grid-template-areas:
+      'title title'
+      'description extraInfo';
 
     .title {
       white-space: nowrap;
@@ -37,12 +41,28 @@
       overflow: hidden;
 
       text-overflow: ellipsis;
+      grid-area: title;
     }
 
     .description {
       overflow-y: auto;
       margin: 5px 0;
       max-height: 100px;
+      color: #ccc;
+      grid-area: description;
+    }
+
+    .extraInfo {
+      margin-left: 10px;
+      grid-area: extraInfo;
+
+      p span + * {
+        width: 20px;
+      }
+
+      p span {
+        display: none;
+      }
     }
   }
 }

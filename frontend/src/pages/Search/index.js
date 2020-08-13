@@ -5,6 +5,7 @@ import getMoviesController from '../../controllers/GetMoviesController';
 
 import Header from '../../components/Header';
 import SearchList from '../../components/SearchList';
+import RateStars from '../../components/RateStars';
 
 // import styles from './styles.module.scss';
 import searchItemStyles from './searchItemStyle.module.scss';
@@ -46,6 +47,13 @@ export default function Search() {
                   <p className={searchItemStyles.description}>
                     {movie.overview}
                   </p>
+                  
+                  <div className={searchItemStyles.extraInfo}>
+                    <p className={searchItemStyles.rating}>
+                      <span>Rate</span>
+                      <RateStars rating={movie.vote_average} />
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
