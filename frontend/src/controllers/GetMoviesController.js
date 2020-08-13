@@ -35,6 +35,12 @@ class GetMoviesController {
       .get('/movies/recommended?size=w500')
       .then(res => res.data.results);
   }
+
+  async search(movie, page = 1, size) {
+    return await api
+      .get(`/movies/search?movie=${movie}&page=${page}&size=${size}`)
+      .then(res => res.data);
+  }
 }
 
 export default new GetMoviesController();

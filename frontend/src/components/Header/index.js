@@ -19,7 +19,7 @@ export default () => {
 
   const handleSearch = e => {
     e.preventDefault();
-    history.push(`/movies?s=${searchInput}`);
+    history.push(`/movies?movie=${searchInput}`);
   };
 
   return (
