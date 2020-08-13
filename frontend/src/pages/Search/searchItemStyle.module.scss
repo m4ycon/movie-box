@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+
+.container {
+  height: 150px;
+  display: grid;
+  grid-template-columns: 100px calc(100% - 100px);
+
+  background-color: #333;
+
+  margin: 12px;
+  border-radius: $border-radius-m;
+  overflow: hidden;
+  transition: box-shadow 200ms;
+
+  &:hover {
+    box-shadow: 0 0 0 3px $color-d;
+  }
+
+  .imageContainer {
+    height: 100%;
+    width: 100px;
+
+    .image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .movieInfo {
+    padding: 10px;
+
+    .title {
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+    }
+
+    .description {
+      overflow-y: auto;
+      margin: 5px 0;
+      max-height: 100px;
+    }
+  }
+}

@@ -4,8 +4,10 @@ import { useLocation } from 'react-router-dom';
 import getMoviesController from '../../controllers/GetMoviesController';
 
 import Header from '../../components/Header';
+import SearchList from '../../components/SearchList';
 
-// import styles from './styles.scss';
+// import styles from './styles.module.scss';
+import searchItemStyles from './searchItemStyle.module.scss';
 
 export default function Search() {
   const query = new URLSearchParams(useLocation().search);
@@ -25,8 +27,29 @@ export default function Search() {
       <Header />
 
       <main>
-        {movies.results &&
-          movies.results.map(movie => <p key={movie.id}>{movie.title}</p>)}
+        <SearchList>
+          {movies.results &&
+            movies.results.map(movie => (
+              <div key={movie.id} className={searchItemStyles.container}>
+                <div className={searchItemStyles.imageContainer}>
+                  <img
+                    className={searchItemStyles.image}
+                    src={movie.poster_path}
+                    alt={movie.title}
+                  />
+                </div>
+                <div className={searchItemStyles.movieInfo}>
+                  <h3 className={searchItemStyles.title} title={movie.title}>
+                    {movie.title}
+                  </h3>
+
+                  <p className={searchItemStyles.description}>
+                    {movie.overview}
+                  </p>
+                </div>
+              </div>
+            ))}
+        </SearchList>
       </main>
     </>
   );
