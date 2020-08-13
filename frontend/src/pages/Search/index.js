@@ -27,7 +27,9 @@ export default function Search() {
       <main>
         <SearchList>
           {movies.results &&
-            movies.results.map(movie => <MovieSearchItem movie={movie} />)}
+            movies.results.map(movie => (
+              <MovieSearchItem key={movie.id} movie={movie} />
+            ))}
         </SearchList>
       </main>
     </>
