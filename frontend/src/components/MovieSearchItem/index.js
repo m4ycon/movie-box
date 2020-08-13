@@ -22,15 +22,15 @@ export default function MovieSearchItem({ movie }) {
         <p className={styles.description}>{movie.overview}</p>
 
         <div className={styles.extraInfo}>
-          <p className={styles.rating}>
+          <div className={styles.rating}>
             <span>Rate</span>
             <RateStars rating={movie.vote_average} />
-          </p>
+          </div>
 
-          <p className={styles.release}>
+          <div className={styles.release}>
             <span>Release date</span>
             {movie.release_date.replace(/-/g, '/')}
-          </p>
+          </div>
         </div>
       </div>
     </div>
