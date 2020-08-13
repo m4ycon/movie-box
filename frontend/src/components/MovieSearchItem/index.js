@@ -27,10 +27,12 @@ export default function MovieSearchItem({ movie }) {
             <RateStars rating={movie.vote_average} />
           </div>
 
-          <div className={styles.release}>
-            <span>Release date</span>
-            {movie.release_date.replace(/-/g, '/')}
-          </div>
+          {movie.release_date && (
+            <div className={styles.release}>
+              <span>Release date</span>
+              {movie.release_date.replace(/-/g, '/')}
+            </div>
+          )}
         </div>
       </div>
     </div>
