@@ -34,5 +34,9 @@ export default function RateStars({ rating }) {
     constructRateStars(rate);
   }, [rating]);
 
-  return <div className={styles.container}>{stars}</div>;
+  return (
+    <div className={styles.container} title={`${rating} out of 10`}>
+      {stars}
+    </div>
+  );
 }
