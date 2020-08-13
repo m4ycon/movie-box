@@ -92,38 +92,10 @@
         padding-right: 5px;
       }
 
-      .buttonsContainer {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 5px;
+      .starsContainer {
+        display: flex;
+        justify-content: center;
         margin-top: 5px;
-
-        .button {
-          padding: 5px 16px;
-          border: 0;
-          border-radius: $border-radius-s;
-
-          &:hover {
-            cursor: pointer;
-          }
-
-          &.buttonLater {
-            background-color: $color-a;
-            transition: background-color 300ms;
-            &:hover {
-              background-color: $color-b;
-            }
-          }
-
-          &.buttonWatched {
-            background-color: $color-d;
-            color: whitesmoke;
-            transition: background-color 300ms;
-            &:hover {
-              background-color: $color-e;
-            }
-          }
-        }
       }
     }
   }

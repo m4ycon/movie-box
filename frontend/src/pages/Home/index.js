@@ -83,7 +83,7 @@ export default () => {
                       {movie.overview}
                     </p>
 
-                    <div className={carrouselItemStyle.buttonsContainer}>
+                    <div className={carrouselItemStyle.starsContainer}>
                       <RateStars rating={movie.vote_average}/>
                     </div>
                   </div>
