@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import getMoviesController from '../../controllers/GetMoviesController';
 
-import sliderItemStyle from './sliderItem.module.scss';
 import styles from './styles.module.scss';
 
 import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
 import Slider from '../../components/Slider';
-import Dropdown from '../../components/Dropdown';
 import MovieCarrouselItem from '../../components/MovieCarrouselItem';
+import MovieSlideItem from '../../components/MovieSlideItem';
 
 export default () => {
   const [popular, setPopular] = useState([]);
@@ -47,24 +46,7 @@ export default () => {
         <div className={styles.containerSlider}>
           <Slider title="Top Rated" height="175px">
             {topRated.map(movie => (
-              <div
-                key={movie.id}
-                className={sliderItemStyle.slide}
-                title={movie.title}
-              >
-                <img src={movie.poster_path} alt={movie.title} />
-
-                <div className={sliderItemStyle.dropdown}>
-                  <Dropdown>
-                    <button className={sliderItemStyle.dropdownBtn}>
-                      Watch Later
-                    </button>
-                    <button className={sliderItemStyle.dropdownBtn}>
-                      Watched
-                    </button>
-                  </Dropdown>
-                </div>
-              </div>
+              <MovieSlideItem key={movie.id} movie={movie} />
             ))}
           </Slider>
         </div>
@@ -72,24 +54,7 @@ export default () => {
         <div className={styles.containerSlider}>
           <Slider title="Recommended Movies" height="175px">
             {recommended.map(movie => (
-              <div
-                key={movie.id}
-                className={sliderItemStyle.slide}
-                title={movie.title}
-              >
-                <img src={movie.poster_path} alt={movie.title} />
-
-                <div className={sliderItemStyle.dropdown}>
-                  <Dropdown>
-                    <button className={sliderItemStyle.dropdownBtn}>
-                      Watch Later
-                    </button>
-                    <button className={sliderItemStyle.dropdownBtn}>
-                      Watched
-                    </button>
-                  </Dropdown>
-                </div>
-              </div>
+              <MovieSlideItem key={movie.id} movie={movie} />
             ))}
           </Slider>
         </div>
