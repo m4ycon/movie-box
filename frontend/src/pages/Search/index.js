@@ -53,6 +53,11 @@ export default function Search() {
                       <span>Rate</span>
                       <RateStars rating={movie.vote_average} />
                     </p>
+
+                    <p className={searchItemStyles.release}>
+                      <span>Release date</span>
+                      {movie.release_date.replace(/-/g, '/')}
+                    </p>
                   </div>
                 </div>
               </div>

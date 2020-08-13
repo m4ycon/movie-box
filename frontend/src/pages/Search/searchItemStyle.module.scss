@@ -31,6 +31,7 @@
   .movieInfo {
     padding: 10px;
     display: grid;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
       'title title'
       'description extraInfo';
@@ -47,6 +48,7 @@
     .description {
       overflow-y: auto;
       margin: 5px 0;
+      padding-right: 5px;
       max-height: 100px;
       color: #ccc;
       grid-area: description;
@@ -56,12 +58,36 @@
       margin-left: 10px;
       grid-area: extraInfo;
 
-      p span + * {
+      .rating span + * {
         width: 20px;
       }
 
-      p span {
+      p span,
+      .release {
         display: none;
+      }
+
+      @media (min-width: 700px) {
+        p span,
+        .release {
+          display: block;
+        }
+
+        .release {
+          color: #ccc;
+        }
+
+        .release span {
+          color: white;
+        }
+
+        .rating span + * {
+          width: auto;
+        }
+
+        p {
+          margin: 5px 0;
+        }
       }
     }
   }
