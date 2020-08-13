@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import getMoviesController from '../../controllers/GetMoviesController';
 
+import Header from '../../components/Header';
+
 // import styles from './styles.scss';
 
 export default function Search() {
@@ -19,9 +21,13 @@ export default function Search() {
   }, [query]);
 
   return (
-    <div>
-      {movies.results &&
-        movies.results.map(movie => <p key={movie.id}>{movie.title}</p>)}
-    </div>
+    <>
+      <Header />
+
+      <main>
+        {movies.results &&
+          movies.results.map(movie => <p key={movie.id}>{movie.title}</p>)}
+      </main>
+    </>
   );
 }
