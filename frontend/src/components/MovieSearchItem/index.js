@@ -3,12 +3,13 @@ import React from 'react';
 import styles from './styles.module.scss';
 
 import RateStars from '../RateStars';
+import Image from '../Image';
 
 export default function MovieSearchItem({ movie }) {
   return (
     <div key={movie.id} className={styles.container}>
       <div className={styles.imageContainer}>
-        <img
+        <Image
           className={styles.image}
           src={movie.poster_path}
           alt={movie.title}
