@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 import Carrousel from '../../components/Carrousel';
 import Slider from '../../components/Slider';
 import MovieCarrouselItem from '../../components/MovieCarrouselItem';
-import MovieSlideItem from '../../components/MovieSlideItem';
+import MovieSliderItem from '../../components/MovieSliderItem';
 
 export default () => {
   const [popular, setPopular] = useState([]);
@@ -46,7 +46,7 @@ export default () => {
         <div className={styles.containerSlider}>
           <Slider title="Top Rated" height="175px">
             {topRated.map(movie => (
-              <MovieSlideItem key={movie.id} movie={movie} />
+              <MovieSliderItem key={movie.id} movie={movie} />
             ))}
           </Slider>
         </div>
@@ -54,7 +54,7 @@ export default () => {
         <div className={styles.containerSlider}>
           <Slider title="Recommended Movies" height="175px">
             {recommended.map(movie => (
-              <MovieSlideItem key={movie.id} movie={movie} />
+              <MovieSliderItem key={movie.id} movie={movie} />
             ))}
           </Slider>
         </div>
