@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './styles.module.scss';
 import RateStars from '../RateStars';
+import Image from '../Image';
 
 export default function MovieCarrouselItem({ movie }) {
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
@@ -13,7 +14,7 @@ export default function MovieCarrouselItem({ movie }) {
     <div key={movie.id} className={styles.movie}>
       <div className={styles.imageContainer}>
         {movie.images.map((imageURL, i) => (
-          <img
+          <Image
             key={i}
             className={`${styles.image} ${
               hoverIndexPreview === i ? styles.currentImage : ''
@@ -32,7 +33,7 @@ export default function MovieCarrouselItem({ movie }) {
         <div className={styles.movieInfo}>
           <div className={styles.previewContainer}>
             {movie.images.map((imageURL, i) => (
-              <img
+              <Image
                 onMouseEnter={() => handleHoverPreviewEnter(i)}
                 onMouseLeave={handleHoverPreviewLeave}
                 key={i}
