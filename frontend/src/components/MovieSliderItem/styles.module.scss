@@ -3,7 +3,7 @@
 .slide {
   height: 100%;
   border-radius: $border-radius-m;
-  background-color: grey;
+  background-color: #aaa;
   position: relative;
 
   &:hover {
@@ -30,7 +30,7 @@
 
     .dropdownBtn {
       border: 0;
-      color: white;
+      color: $text-color-primary;
       background-color: $color-b;
       padding: 0.5rem;
       border-radius: $border-radius-s;

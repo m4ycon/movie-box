@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 .movie {
-  background-color: #333;
+  background-color: $back-color-secondary;
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -47,7 +47,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    text-shadow: 0 0 0.4rem #000000;
+    text-shadow: 0 0 0.4rem #000;
     text-align: center;
     width: 100%;
     max-width: 35rem;
@@ -90,7 +90,7 @@
         margin: 0.5rem 0;
         box-sizing: border-box;
         padding-right: 0.5rem;
-        color: #ccc;
+        color: $text-color-secondary;
       }
 
       .starsContainer {

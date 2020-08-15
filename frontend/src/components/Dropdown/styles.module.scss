@@ -8,7 +8,7 @@
   top: $border-distance;
   right: $border-distance;
   cursor: pointer;
-  background-color: $color-b;
+  background-color: $color-b-light;
   border: 0;
   border-radius: $border-radius-s;
 
@@ -17,7 +17,7 @@
   transition: background-color 200ms;
 
   &:hover {
-    background-color: $color-b-dark;
+    background-color: $color-b;
   }
 
   & + .dropdown {

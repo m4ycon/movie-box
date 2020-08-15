@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: 10rem calc(100% - 10rem);
 
-  background-color: #333;
+  background-color: $back-color-secondary;
 
   margin: 1.2rem;
   border-radius: $border-radius-m;
@@ -51,7 +51,7 @@
       margin: 0.5rem 0;
       padding-right: 0.5rem;
       max-height: 10rem;
-      color: #ccc;
+      color: $text-color-secondary;
       grid-area: description;
     }
 
@@ -76,11 +76,11 @@
         }
 
         .release {
-          color: #ccc;
+          color: $text-color-secondary;
         }
 
         .release span {
-          color: white;
+          color: $text-color-primary;
         }
 
         .rating span + * {

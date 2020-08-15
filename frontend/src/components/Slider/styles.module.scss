@@ -3,9 +3,9 @@
 .container {
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background-color: $color-b;
+    background-color: $color-b-light;
     &:hover {
-      background-color: $color-b-light;
+      background-color: $color-b;
     }
   }
 }
