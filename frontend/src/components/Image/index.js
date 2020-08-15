@@ -6,6 +6,7 @@ import Loading from '../Loading';
 export default function Image({
   src,
   className,
+  alt,
   position = 'relative',
   ...props
 }) {
@@ -15,6 +16,7 @@ export default function Image({
     <div style={{ position }} className={styles.container}>
       <img
         src={src}
+        alt={alt}
         className={`${className} ${styles.image}`}
         onLoad={() => setLoaded(true)}
         {...props}

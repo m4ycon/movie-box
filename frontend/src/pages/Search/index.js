@@ -15,9 +15,13 @@ export default function Search() {
     const movieName = query.get('movie');
     const page = query.get('page') || 1;
 
+    let isSubscribed = true;
+
     getMoviesController
       .search(movieName, page, 'w500')
-      .then(res => setMovies(res));
+      .then(res => isSubscribed && setMovies(res));
+
+    return () => (isSubscribed = false);
   }, [query]);
 
   return (

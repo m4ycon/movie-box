@@ -18,12 +18,23 @@ export default () => {
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', () => setWindowWidth(window.innerWidth));
+    let isSubscribed = true;
 
-    getMoviesController.popular().then(res => setPopular(res));
-    getMoviesController.topRated().then(res => setTopRated(res));
-    getMoviesController.recommended().then(res => setRecommended(res));
+    setWindowWidth(window.innerWidth);
+    window.addEventListener(
+      'resize',
+      () => isSubscribed && setWindowWidth(window.innerWidth)
+    );
+
+    getMoviesController.popular().then(res => isSubscribed && setPopular(res));
+    getMoviesController
+      .topRated()
+      .then(res => isSubscribed && setTopRated(res));
+    getMoviesController
+      .recommended()
+      .then(res => isSubscribed && setRecommended(res));
+
+    return () => (isSubscribed = false);
   }, []);
 
   return (
