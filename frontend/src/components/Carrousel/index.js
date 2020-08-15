@@ -2,6 +2,7 @@ import React, { useState, Children, useEffect } from 'react';
 
 import styles from './style.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import Loading from '../Loading';
 
 export default ({
   children,
@@ -43,6 +44,8 @@ export default ({
 
   const mouseEnter = () => setIsHover(true);
   const mouseLeave = () => setIsHover(false);
+
+  if (!slides.length) return <Loading />;
 
   return (
     <section

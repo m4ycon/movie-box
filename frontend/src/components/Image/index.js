@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Loading from '../Loading';
 
-export default function Image({ src, className, ...props }) {
+export default function Image({
+  src,
+  className,
+  position = 'relative',
+  ...props
+}) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className={styles.container}>
+    <div style={{ position }} className={styles.container}>
       <img
         src={src}
         className={`${className} ${styles.image}`}
