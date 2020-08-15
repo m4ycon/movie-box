@@ -1,9 +1,13 @@
 @import './variables.scss';
 
+:root {
+  font-size: 10px;
+}
+
 body {
   background-color: $back-color-primary;
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 1.6rem;
   color: $text-color-primary;
 }
 
@@ -22,25 +26,25 @@ main {
 
   height: 100%;
   width: 100%;
-  max-width: 1000px;
-  margin: 50px auto;
+  max-width: 100rem;
+  margin: 5rem auto;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 0.7rem;
+  height: 0.7rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparent;
-  border-radius: 3.5px;
+  border-radius: 0.35rem;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: $color-b;
-  border-radius: 3.5px;
+  border-radius: 0.35rem;
 
   /* Handle on hover */
   &:hover {

@@ -1,24 +1,24 @@
 @import '../../styles/variables.scss';
 
 .container {
-  height: 150px;
+  height: 15rem;
   display: grid;
-  grid-template-columns: 100px calc(100% - 100px);
+  grid-template-columns: 10rem calc(100% - 10rem);
 
   background-color: #333;
 
-  margin: 12px;
+  margin: 1.2rem;
   border-radius: $border-radius-m;
   overflow: hidden;
   transition: box-shadow 200ms;
 
   &:hover {
-    box-shadow: 0 0 0 3px $color-d;
+    box-shadow: 0 0 0 0.3rem $color-d;
   }
 
   .imageContainer {
     height: 100%;
-    width: 100px;
+    width: 10rem;
 
     .image {
       height: 100%;
@@ -29,7 +29,7 @@
   }
 
   .movieInfo {
-    padding: 10px;
+    padding: 1rem;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto 1fr;
@@ -48,19 +48,19 @@
 
     .description {
       overflow-y: auto;
-      margin: 5px 0;
-      padding-right: 5px;
-      max-height: 100px;
+      margin: 0.5rem 0;
+      padding-right: 0.5rem;
+      max-height: 10rem;
       color: #ccc;
       grid-area: description;
     }
 
     .extraInfo {
-      margin-left: 10px;
+      margin-left: 1rem;
       grid-area: extraInfo;
 
       .rating span + * {
-        width: 20px;
+        width: 2rem;
       }
 
       .rating span,
@@ -88,7 +88,7 @@
         }
 
         div {
-          margin: 5px 0;
+          margin: 0.5rem 0;
         }
       }
     }

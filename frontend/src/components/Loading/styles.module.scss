@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10px;
+  height: 1rem;
 
   position: absolute;
   left: 50%;
@@ -12,13 +12,13 @@
   transform: translate(-50%, -50%);
 
   .loadingDot {
-    width: 10px;
-    height: 10px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
     background-color: $color-b;
 
     & + .loadingDot {
-      margin-left: 5px;
+      margin-left: 0.5rem;
     }
 
     &:nth-child(1) {

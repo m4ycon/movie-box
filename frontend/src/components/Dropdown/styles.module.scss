@@ -1,8 +1,8 @@
 @import '../../styles/variables.scss';
 
 .btnDropdown {
-  $border-distance: 5px;
-  $button-size: 20px;
+  $border-distance: 0.5rem;
+  $button-size: 2rem;
 
   position: absolute;
   top: $border-distance;
@@ -31,7 +31,7 @@
     background-color: $color-e;
 
     li {
-      margin: 3px;
+      margin: 0.3rem;
     }
 
     &:hover {
