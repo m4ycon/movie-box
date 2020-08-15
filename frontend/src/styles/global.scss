@@ -43,11 +43,11 @@ main {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $color-b;
+  background: $color-a;
   border-radius: 0.35rem;
 
   /* Handle on hover */
   &:hover {
-    background: $color-c;
+    background: $color-a-dark;
   }
 }

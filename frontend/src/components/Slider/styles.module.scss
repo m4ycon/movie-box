@@ -3,9 +3,9 @@
 .container {
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background-color: $color-e;
+    background-color: $color-b;
     &:hover {
-      background-color: $color-d;
+      background-color: $color-b-light;
     }
   }
 }
@@ -27,7 +27,7 @@
       left: 0;
       right: 0;
       width: 90%;
-      background: $color-e;
+      background: $color-b-light;
     }
   }
 }

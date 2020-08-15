@@ -17,7 +17,7 @@
     transform: translateY(-50%);
 
     background-color: transparent;
-    color: $color-b;
+    color: $color-a;
 
     border: 0;
     border-radius: 50%;
@@ -67,7 +67,7 @@
     z-index: 7;
 
     .indicator {
-      background-color: $color-c;
+      background-color: $color-a-dark;
       width: 1rem;
       height: 0.8rem;
       border: 0;
@@ -79,7 +79,7 @@
       }
 
       &.currentIndicator {
-        background-color: $color-b;
+        background-color: $color-a;
       }
 
       @media (min-width: 700px) {

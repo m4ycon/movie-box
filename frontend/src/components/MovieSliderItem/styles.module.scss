@@ -7,7 +7,7 @@
   position: relative;
 
   &:hover {
-    box-shadow: 0 0 0 0.2rem $color-d;
+    box-shadow: 0 0 0 0.2rem $color-b;
   }
 
   & + .slide {
@@ -31,13 +31,13 @@
     .dropdownBtn {
       border: 0;
       color: white;
-      background-color: $color-d;
+      background-color: $color-b;
       padding: 0.5rem;
       border-radius: $border-radius-s;
 
       &:hover {
         cursor: pointer;
-        background-color: darken($color-d, 10%);
+        background-color: $color-b-dark;
       }
     }
   }
