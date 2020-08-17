@@ -12,7 +12,7 @@ export default function MovieCarrouselItem({ movie }) {
   const handleHoverPreviewLeave = () => setHoverIndexPreview(0);
 
   return (
-    <div key={movie.id} className={styles.movie}>
+    <div className={styles.movie}>
       {movie ? (
         <>
           <div className={styles.imageContainer}>

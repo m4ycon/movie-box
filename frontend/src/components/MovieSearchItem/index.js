@@ -7,7 +7,7 @@ import Image from '../Image';
 
 export default function MovieSearchItem({ movie }) {
   return (
-    <div key={movie.id} className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.imageContainer}>
         <Image
           className={styles.image}
