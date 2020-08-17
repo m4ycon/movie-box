@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+
+.checkbox {
+  display: flex;
+  align-items: center;
+
+  background-color: $color-b;
+  color: $text-color-primary;
+  border-radius: $border-radius-s;
+
+  padding: 0.5rem;
+  transition: background-color 200ms;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-b-dark;
+  }
+
+  input {
+    margin-right: 0.8rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
