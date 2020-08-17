@@ -4,6 +4,8 @@ import styles from './styles.module.scss';
 import RateStars from '../RateStars';
 import Image from '../Image';
 import Loading from '../Loading';
+import Dropdown from '../Dropdown';
+import Checkbox from '../Checkbox';
 
 export default function MovieCarrouselItem({ movie }) {
   const [hoverIndexPreview, setHoverIndexPreview] = useState(0);
@@ -54,6 +56,13 @@ export default function MovieCarrouselItem({ movie }) {
                 <RateStars rating={movie.vote_average} />
               </div>
             </div>
+          </div>
+
+          <div className={styles.dropdown}>
+            <Dropdown>
+              <Checkbox label="Watch Later" checked />
+              <Checkbox label="Watched" checked />
+            </Dropdown>
           </div>
         </>
       ) : (

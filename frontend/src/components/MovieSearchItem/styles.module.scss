@@ -4,6 +4,7 @@
   height: 15rem;
   display: grid;
   grid-template-columns: 10rem calc(100% - 10rem);
+  position: relative;
 
   background-color: $back-color-secondary;
 
@@ -92,5 +93,16 @@
         }
       }
     }
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &:hover .dropdown {
+    display: block;
   }
 }

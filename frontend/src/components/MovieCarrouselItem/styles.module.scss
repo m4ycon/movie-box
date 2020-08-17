@@ -6,6 +6,17 @@
   flex-direction: row;
   height: 100%;
   position: relative;
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &:hover .dropdown {
+    display: block;
+  }
 }
 
 .imageContainer {

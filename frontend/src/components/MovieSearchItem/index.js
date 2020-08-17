@@ -4,6 +4,8 @@ import styles from './styles.module.scss';
 
 import RateStars from '../RateStars';
 import Image from '../Image';
+import Dropdown from '../Dropdown';
+import Checkbox from '../Checkbox';
 
 export default function MovieSearchItem({ movie }) {
   return (
@@ -35,6 +37,13 @@ export default function MovieSearchItem({ movie }) {
             </div>
           )}
         </div>
+      </div>
+
+      <div className={styles.dropdown}>
+        <Dropdown>
+          <Checkbox label="Watch Later" checked />
+          <Checkbox label="Watched" checked />
+        </Dropdown>
       </div>
     </div>
   );

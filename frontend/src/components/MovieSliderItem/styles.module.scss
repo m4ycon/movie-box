@@ -27,19 +27,6 @@
     position: absolute;
     top: 0;
     right: 0;
-
-    .dropdownBtn {
-      border: 0;
-      color: $text-color-primary;
-      background-color: $color-b;
-      padding: 0.5rem;
-      border-radius: $border-radius-s;
-
-      &:hover {
-        cursor: pointer;
-        background-color: $color-b-dark;
-      }
-    }
   }
 
   &:hover .dropdown {
