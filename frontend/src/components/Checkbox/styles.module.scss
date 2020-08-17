@@ -1,12 +1,16 @@
 @import '../../styles/variables.scss';
 
 .checkbox {
-  display: flex;
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
   align-items: center;
+  gap: 0.5rem;
+  position: relative;
 
   background-color: $color-b;
   color: $text-color-primary;
   border-radius: $border-radius-s;
+  user-select: none;
 
   padding: 0.5rem;
   transition: background-color 200ms;
@@ -16,11 +20,25 @@
     background-color: $color-b-dark;
   }
 
-  input {
-    margin-right: 0.8rem;
+  .checkMark {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: $color-b-light;
 
-    &:hover {
-      cursor: pointer;
+    .checkIcon {
+      display: none;
+      color: $color-b;
+    }
+  }
+
+  
+
+  input:checked ~ .checkMark {
+    background-color: $color-a;
+
+    .checkIcon {
+      display: block;
     }
   }
 }

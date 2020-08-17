@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FiCheck } from 'react-icons/fi';
 
 import styles from './styles.module.scss';
 
@@ -24,8 +25,13 @@ export default function Checkbox({
         type="checkbox"
         checked={isChecked}
         onChange={() => setIsChecked(prev => !prev)}
-        onClick={handleCheck}
+        hidden
       />
+
+      <span className={styles.checkMark}>
+        <FiCheck size="100%" className={styles.checkIcon} />
+      </span>
+
       <p>{label}</p>
     </div>
   );
